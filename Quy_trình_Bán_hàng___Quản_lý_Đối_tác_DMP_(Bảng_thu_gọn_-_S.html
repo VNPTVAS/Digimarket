@@ -1,0 +1,2564 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="artifact-type" content="dashboard">
+<meta name="design-style" content="carbon">
+<title>Điều hành Bán hàng &amp; Quản trị Đối tác Digital Market Place (dimarket.vn · 1376)</title>
+<style>
+:root {
+  color-scheme: light;
+  /* Carbon Surfaces */
+  --background: #ffffff;
+  --surface-container-low: #f4f4f4;
+  --surface-container: #f4f4f4;
+  --surface-container-high: #e0e0e0;
+
+  /* Ink */
+  --on-surface: #161616;
+  --on-surface-variant: #525252;
+
+  /* Rules */
+  --outline: #8d8d8d;
+  --outline-variant: #e0e0e0;
+
+  /* Accents */
+  --primary: #0f62fe;
+  --on-primary: #ffffff;
+  --primary-hover: #0043ce;
+  --primary-container: #d0e2ff;
+  --on-primary-container: #161616;
+  --secondary: #6f6f6f;
+  --tertiary: #198038;
+  --error: #da1e28;
+  --on-error: #ffffff;
+
+  /* Semantic & Partner Status Tokens */
+  --positive: #198038;
+  --warning: #b28600;
+  --focus: #0f62fe;
+
+  --row-green: #effaf1;
+  --row-green-hover: #defbe6;
+  --badge-green-bg: #defbe6;
+  --badge-green-fg: #0e6027;
+  --badge-green-border: #198038;
+
+  --row-yellow: #fdf8e6;
+  --row-yellow-hover: #fcf4d6;
+  --badge-yellow-bg: #fcf4d6;
+  --badge-yellow-fg: #6b4e00;
+  --badge-yellow-border: #b28600;
+
+  --row-red: #fff5f5;
+  --row-red-hover: #ffe5e7;
+  --badge-red-bg: #fff1f1;
+  --badge-red-fg: #a2191f;
+  --badge-red-border: #da1e28;
+
+  /* Data series */
+  --data-1: #0f62fe;
+  --data-2: #6929c4;
+  --data-3: #005d5d;
+  --data-4: #9f1853;
+  --data-5: #b28600;
+  --data-context: #8d8d8d;
+
+  /* User requested Arial throughout */
+  --font-headline: Arial, Helvetica, sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-label: Arial, Helvetica, sans-serif;
+
+  /* Shape */
+  --rounded: 0.125rem;
+  --rounded-lg: 0.25rem;
+  --rounded-full: 0.75rem;
+
+  /* Effects */
+  --shadow-1: 0 2px 6px rgb(0 0 0 / 0.1);
+  --shadow-2: 0 4px 16px rgb(0 0 0 / 0.16);
+  --rule: 1px solid var(--outline-variant);
+  --field-rule: 1px solid var(--outline);
+  --indicator: 2px solid var(--primary);
+
+  /* Type scale */
+  --display-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  --headline-size: clamp(1.125rem, 1.02rem + 0.4vw, 1.375rem);
+  --subhead-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.0625rem);
+  --body-size: 0.9375rem;
+  --label-size: 0.75rem;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.25rem;
+  --space-2xl: 3.5rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  overflow-x: clip;
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: 1.5;
+}
+header { position: static !important; }
+button, input, select, textarea { font-family: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.page-grid {
+  display: grid;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  max-width: 1360px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.page-grid * { min-width: 0; }
+
+/* Masthead / Header */
+.masthead {
+  border-bottom: var(--rule);
+  padding-bottom: var(--space-md);
+}
+.eyebrow-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+.label-tag {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--on-surface-variant);
+}
+.pill-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 var(--space-sm);
+  border-radius: var(--rounded-full);
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  font-size: var(--label-size);
+  font-weight: 700;
+}
+.headline-main {
+  font-family: var(--font-headline);
+  font-size: var(--display-size);
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 var(--space-xs) 0;
+}
+.headline-main strong { font-weight: 700; }
+.subtitle-main {
+  margin: 0;
+  color: var(--on-surface-variant);
+  font-size: var(--body-size);
+  max-width: 92ch;
+}
+
+/* Top Anchor Nav */
+.section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  border-bottom: var(--rule);
+  padding-bottom: var(--space-xs);
+}
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 var(--space-md);
+  color: var(--on-surface-variant);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+  transition: color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+}
+.nav-link:hover {
+  color: var(--primary);
+  background: var(--surface-container);
+}
+.nav-link.is-active {
+  color: var(--on-surface);
+  border-bottom: var(--indicator);
+}
+
+/* KPI Strip */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  gap: var(--space-md);
+}
+.kpi-tile {
+  background: var(--surface-container);
+  padding: var(--space-md);
+  border-bottom: var(--rule);
+}
+.kpi-tile.key-tile { border-bottom: var(--indicator); }
+.kpi-value {
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: var(--space-xs) 0;
+  font-variant-numeric: tabular-nums;
+}
+.kpi-sub {
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+}
+
+/* Section Shells */
+.section-block {
+  display: grid;
+  gap: var(--space-md);
+  padding-top: var(--space-sm);
+}
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-sm);
+  border-bottom: var(--rule);
+  padding-bottom: var(--space-sm);
+}
+.section-title {
+  margin: 0;
+  font-size: var(--headline-size);
+  font-weight: 700;
+  line-height: 1.25;
+}
+.section-desc {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
+}
+
+/* Carbon Layers */
+.layer {
+  background: var(--surface-container);
+  padding: var(--space-md);
+}
+.layer-high {
+  background: var(--surface-container-high);
+  padding: var(--space-md);
+}
+.layer-white {
+  background: var(--background);
+  border: var(--rule);
+  padding: var(--space-md);
+}
+
+/* Controls & Buttons */
+.control-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: end;
+}
+.field-group {
+  display: grid;
+  gap: var(--space-xs);
+  flex: 1 1 260px;
+}
+.field-group.compact { flex: 0 1 200px; }
+.field-label {
+  font-size: var(--label-size);
+  font-weight: 700;
+  color: var(--on-surface-variant);
+}
+.input-ctrl, .select-ctrl, .textarea-ctrl {
+  width: 100%;
+  background: var(--background);
+  color: var(--on-surface);
+  border: 1px solid var(--outline-variant);
+  border-bottom: var(--field-rule);
+  border-radius: 0;
+  padding: 0 var(--space-md);
+  height: 40px;
+  font-size: 0.875rem;
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.select-ctrl { padding-right: var(--space-lg); }
+.textarea-ctrl {
+  height: auto;
+  min-height: 110px;
+  padding: var(--space-sm) var(--space-md);
+  line-height: 1.45;
+  resize: vertical;
+}
+.input-ctrl:hover, .select-ctrl:hover, .textarea-ctrl:hover {
+  background: var(--surface-container-low);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  height: 40px;
+  padding: 0 var(--space-md);
+  border-radius: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+}
+.btn-sm { height: 32px; padding: 0 var(--space-sm); font-size: 0.8125rem; }
+.btn-primary { background: var(--primary); color: var(--on-primary); }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-secondary {
+  background: var(--background);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.btn-secondary:hover { background: var(--primary-container); color: var(--on-primary-container); }
+.btn-ghost {
+  background: transparent;
+  color: var(--primary);
+}
+.btn-ghost:hover { background: var(--surface-container-high); }
+.btn-danger {
+  background: var(--background);
+  color: var(--error);
+  border-color: var(--error);
+}
+.btn-danger:hover { background: var(--error); color: var(--on-error); }
+.btn-danger.armed { background: var(--error); color: var(--on-error); }
+
+/* Notification Strip */
+.notice-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  background: var(--surface-container);
+  border-left: 3px solid var(--primary);
+  padding: var(--space-sm) var(--space-md);
+  font-size: 0.875rem;
+}
+.notice-strip.ok { border-left-color: var(--positive); }
+.notice-strip.warn { border-left-color: var(--warning); }
+.notice-strip.err { border-left-color: var(--error); }
+
+/* Two-col asymmetric grids */
+.grid-8-4 {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: var(--space-md);
+}
+.grid-6-6 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: var(--space-md);
+}
+
+/* Code Block */
+.code-box {
+  background: var(--on-surface);
+  color: var(--background);
+  padding: var(--space-md);
+  font-family: Consolas, "Courier New", Arial, monospace;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  max-height: 280px;
+  overflow: auto;
+  white-space: pre;
+  border-left: 3px solid var(--primary);
+}
+
+/* Tabs */
+.tab-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  border-bottom: var(--rule);
+}
+.tab-btn {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: var(--space-sm) var(--space-md);
+  min-height: 40px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+}
+.tab-btn:hover { color: var(--on-surface); background: var(--surface-container); }
+.tab-btn.is-active {
+  color: var(--on-surface);
+  font-weight: 700;
+  border-bottom: var(--indicator);
+}
+.tab-panel { display: none; }
+.tab-panel.is-active { display: block; }
+
+/* 5-step process bar */
+.step-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  gap: var(--space-sm);
+}
+.step-card {
+  background: var(--surface-container);
+  padding: var(--space-md);
+  border-top: 3px solid var(--primary);
+  display: grid;
+  gap: var(--space-xs);
+  align-content: start;
+}
+.step-card.is-n5 { border-top-color: var(--data-2); }
+.step-card.is-channel { border-top-color: var(--data-3); }
+.step-num {
+  font-size: var(--label-size);
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+.step-card.is-n5 .step-num { color: var(--data-2); }
+.step-card.is-channel .step-num { color: var(--data-3); }
+.step-title { margin: 0; font-size: 0.9375rem; font-weight: 700; }
+.step-body { margin: 0; font-size: 0.8125rem; color: var(--on-surface-variant); }
+
+/* Standard Table */
+.std-table-wrap {
+  overflow-x: auto;
+  border: var(--rule);
+}
+.std-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+.std-table th {
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+  font-weight: 700;
+  text-align: left;
+  padding: 0.5rem 0.65rem;
+  border-bottom: var(--rule);
+  white-space: nowrap;
+}
+.std-table td {
+  padding: 0.45rem 0.65rem;
+  border-bottom: var(--rule);
+  vertical-align: top;
+}
+.std-table tbody tr:nth-child(even) { background: var(--surface-container-low); }
+
+.raci-badge {
+  display: inline-block;
+  min-width: 28px;
+  text-align: center;
+  padding: 1px 6px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  border-radius: var(--rounded);
+}
+.raci-ar { background: var(--primary); color: var(--on-primary); }
+.raci-r { background: var(--primary-container); color: var(--on-primary-container); }
+.raci-c { background: var(--surface-container-high); color: var(--on-surface); }
+.raci-i { background: var(--background); color: var(--on-surface-variant); border: var(--rule); }
+
+/* Roadmap Chart & Cards */
+.chart-wrap {
+  min-height: 270px;
+  background: var(--background);
+  border: var(--rule);
+  padding: var(--space-md);
+}
+.roadmap-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: var(--space-sm);
+}
+.rm-card {
+  background: var(--surface-container);
+  padding: var(--space-md);
+  border-left: 3px solid var(--data-context);
+}
+.rm-card.is-current { border-left-color: var(--primary); background: var(--primary-container); }
+.rm-year { font-size: 1rem; font-weight: 700; margin: 0 0 var(--space-xs) 0; }
+.rm-list { margin: 0; padding-left: 1.1rem; font-size: 0.8125rem; }
+.rm-list li + li { margin-top: 0.25rem; }
+
+/* Filter Pills for Partner Status */
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--outline-variant);
+  background: var(--background);
+  color: var(--on-surface);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: var(--rounded);
+}
+.status-pill:hover { background: var(--surface-container); }
+.status-pill.is-active {
+  border-color: var(--primary);
+  box-shadow: inset 0 -2px 0 var(--primary);
+  background: var(--surface-container-low);
+}
+.dot-swatch {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: var(--rounded-full);
+}
+.dot-green { background: var(--badge-green-border); }
+.dot-yellow { background: var(--badge-yellow-border); }
+.dot-red { background: var(--badge-red-border); }
+.dot-all { background: var(--primary); }
+
+/* COMPACT PARTNER TABLE WITH FIXED-HEIGHT VERTICAL SCROLL + STICKY HEADER */
+.partner-scroll-box {
+  height: 540px;
+  max-height: 540px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid var(--outline-variant);
+  background: var(--background);
+  position: relative;
+}
+.partner-table {
+  width: 100%;
+  min-width: 1080px;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  table-layout: fixed;
+}
+.partner-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+  font-weight: 700;
+  font-size: var(--label-size);
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.55rem 0.5rem;
+  border-bottom: 2px solid var(--outline);
+  white-space: nowrap;
+}
+.partner-table tbody td {
+  padding: 0.42rem 0.5rem;
+  border-bottom: 1px solid var(--outline-variant);
+  vertical-align: middle;
+}
+.partner-table tbody tr {
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.partner-table tbody tr.row-green { background: var(--row-green); }
+.partner-table tbody tr.row-green:hover { background: var(--row-green-hover); }
+.partner-table tbody tr.row-yellow { background: var(--row-yellow); }
+.partner-table tbody tr.row-yellow:hover { background: var(--row-yellow-hover); }
+.partner-table tbody tr.row-red { background: var(--row-red); }
+.partner-table tbody tr.row-red:hover { background: var(--row-red-hover); }
+
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.32;
+  max-height: 2.64em;
+  word-break: break-word;
+}
+.clamp-1 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--rounded-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.badge-green { background: var(--badge-green-bg); color: var(--badge-green-fg); border-color: var(--badge-green-border); }
+.badge-yellow { background: var(--badge-yellow-bg); color: var(--badge-yellow-fg); border-color: var(--badge-yellow-border); }
+.badge-red { background: var(--badge-red-bg); color: var(--badge-red-fg); border-color: var(--badge-red-border); }
+
+.score-num {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Modal / Detail Drawer for CRUD & Full Reading */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(22 22 22 / 0.56);
+  z-index: 50;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+}
+.modal-backdrop.is-open { display: flex; }
+.modal-dialog {
+  background: var(--background);
+  width: min(860px, 100%);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-2);
+  border-top: 3px solid var(--primary);
+}
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-bottom: var(--rule);
+  background: var(--surface-container);
+}
+.modal-title { margin: 0; font-size: 1.125rem; font-weight: 700; }
+.modal-body {
+  padding: var(--space-md);
+  overflow-y: auto;
+  display: grid;
+  gap: var(--space-md);
+}
+.modal-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-top: var(--rule);
+  background: var(--surface-container);
+}
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+/* Print / Mobile */
+@media (max-width: 900px) {
+  .grid-8-4, .grid-6-6, .form-grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .page-grid { padding: var(--space-sm); gap: var(--space-md); }
+  .btn { width: 100%; }
+  .partner-scroll-box { height: 460px; max-height: 460px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<main class="page-grid">
+  <!-- HEADER -->
+  <header class="masthead">
+    <div class="eyebrow-row">
+      <span class="label-tag">VNPT-Media · Trung tâm Dịch vụ Số Cá nhân (VNPT VAS) · Phòng Phát triển Kinh doanh</span>
+      <span class="pill-tag">dimarket.vn · Đầu số 1376</span>
+      <span class="pill-tag">Áp dụng mô hình 5 nhóm từ 15/11/2026</span>
+    </div>
+    <h1 class="headline-main">
+      <strong>Quy trình Bán hàng &amp; Quản trị Đối tác</strong> Digital Market Place
+    </h1>
+    <p class="subtitle-main">
+      Cổng điều hành phối hợp giữa <strong>Nhóm Phát triển Mô hình Kinh doanh số mới (Nhóm 4)</strong> và
+      <strong>Nhóm Chính sách &amp; Nghiệp vụ Kinh doanh (Nhóm 5)</strong> theo Văn bản 1616/VNPT-CLSP, 3776/VNPT-CLSP,
+      Quy chế 5 nhóm PTKD và Tờ trình 641/TTr-VNPT Media-VAS.
+    </p>
+  </header>
+
+  <!-- SECTION NAVIGATION -->
+  <nav class="section-nav" aria-label="Điều hướng phân hệ">
+    <a class="nav-link is-active" href="#sec-partners" onclick="setActiveNav(this)">1. Danh mục 32 Đối tác</a>
+    <a class="nav-link" href="#sec-gsheet" onclick="setActiveNav(this)">2. Đồng bộ Google Sheets</a>
+    <a class="nav-link" href="#sec-workflow" onclick="setActiveNav(this)">3. Quy trình 5 bước &amp; RACI</a>
+    <a class="nav-link" href="#sec-invite" onclick="setActiveNav(this)">4. Thư mời hợp tác CP</a>
+    <a class="nav-link" href="#sec-playbook" onclick="setActiveNav(this)">5. Playbook tiếp cận &amp; xử lý</a>
+    <a class="nav-link" href="#sec-roadmap" onclick="setActiveNav(this)">6. Roadmap 2026–2029</a>
+  </nav>
+
+  <!-- TOP KPI SUMMARY -->
+  <section class="kpi-grid" aria-label="Chỉ số điều hành trọng tâm">
+    <div class="kpi-tile key-tile">
+      <div class="label-tag">Tổng danh mục đối tác DMP</div>
+      <div class="kpi-value" id="kpi-total">32</div>
+      <div class="kpi-sub" id="kpi-breakdown">12 Xanh · 15 Vàng · 5 Đỏ</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="label-tag">Cam kết SLA triển khai (VB 3776)</div>
+      <div class="kpi-value">Rút ngắn ≥ 50%</div>
+      <div class="kpi-sub">Thí điểm 01/06/2026 – 31/05/2028 · UAT 3–5 ngày</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="label-tag">Lũy kế GTM 2026 (đến T9/2026)</div>
+      <div class="kpi-value">~500 triệu đ</div>
+      <div class="kpi-sub">&gt;20 SP thuần nội dung số · Chuyển mã phân nhóm TMĐT</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="label-tag">Mục tiêu doanh thu 2027–2029</div>
+      <div class="kpi-value">30,7 → 42,3 tỷ</div>
+      <div class="kpi-sub">TTr 641 · 4 ngành hàng Digital Goods + KIT eSIM</div>
+    </div>
+  </section>
+
+  <!-- SECTION 1 (PROMOTED TOP FOR OPERATIONS): DANH MỤC 32 ĐỐI TÁC COMPACT -->
+  <section id="sec-partners" class="section-block">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Danh mục 32 Đối tác Digital Market Place (Tổng hợp Book1 &amp; Mở rộng v2)</h2>
+        <p class="section-desc">
+          Bảng thu gọn (1–2 dòng mỗi ô) với tiêu đề cố định khi cuộn dọc. Bấm trực tiếp vào bất kỳ hàng nào để xem toàn bộ thông tin, sửa dữ liệu hoặc cập nhật tiến trình trao đổi.
+        </p>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="openAddModal()">+ Thêm đối tác mới</button>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <div class="layer">
+      <div class="control-row" style="margin-bottom: var(--space-sm);">
+        <div class="field-group">
+          <label class="field-label" for="partner-search">Tìm kiếm đối tác, lĩnh vực, đầu mối, hiện trạng</label>
+          <input id="partner-search" class="input-ctrl" type="text" placeholder="Ví dụ: Got It, ELSA, Lotte, E-Voucher, thaihth..." oninput="applyPartnerFilters()">
+        </div>
+        <div class="field-group compact">
+          <label class="field-label" for="partner-cat-filter">Lĩnh vực (Category)</label>
+          <select id="partner-cat-filter" class="select-ctrl" onchange="applyPartnerFilters()">
+            <option value="ALL">Tất cả lĩnh vực</option>
+          </select>
+        </div>
+        <div class="field-group compact">
+          <label class="field-label" for="partner-sort">Sắp xếp theo</label>
+          <select id="partner-sort" class="select-ctrl" onchange="applyPartnerFilters()">
+            <option value="stt_asc">STT mặc định (1 → 32)</option>
+            <option value="score_desc">Điểm phù hợp DMP (Cao → Thấp)</option>
+            <option value="status">Phân loại (Xanh → Vàng → Đỏ)</option>
+            <option value="name_asc">Tên SPDV (A → Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="control-row" style="justify-content: space-between; align-items: center;">
+        <div class="filter-pills" role="group" aria-label="Lọc nhanh theo trạng thái màu">
+          <button type="button" class="status-pill is-active" id="pill-ALL" onclick="setStatusFilter('ALL')">
+            <span class="dot-swatch dot-all" aria-hidden="true"></span>
+            <span>Tất cả (<span id="cnt-all">32</span>)</span>
+          </button>
+          <button type="button" class="status-pill" id="pill-XANH" onclick="setStatusFilter('XANH')">
+            <span class="dot-swatch dot-green" aria-hidden="true"></span>
+            <span>Xanh · Tiềm năng (<span id="cnt-green">0</span>)</span>
+          </button>
+          <button type="button" class="status-pill" id="pill-VANG" onclick="setStatusFilter('VANG')">
+            <span class="dot-swatch dot-yellow" aria-hidden="true"></span>
+            <span>Vàng · Đã liên hệ (<span id="cnt-yellow">0</span>)</span>
+          </button>
+          <button type="button" class="status-pill" id="pill-DO" onclick="setStatusFilter('DO')">
+            <span class="dot-swatch dot-red" aria-hidden="true"></span>
+            <span>Đỏ · Không tiềm năng B2C (<span id="cnt-red">0</span>)</span>
+          </button>
+        </div>
+        <span class="label-tag" id="table-match-count">Đang hiển thị 32 / 32 đối tác</span>
+      </div>
+    </div>
+
+    <!-- Compact Scrollable Table with Sticky Header -->
+    <div class="partner-scroll-box" role="region" aria-label="Bảng danh mục đối tác DMP">
+      <table class="partner-table">
+        <thead>
+          <tr>
+            <th style="width: 44px;">STT</th>
+            <th style="width: 160px;">Tên SPDV / Đối tác</th>
+            <th style="width: 120px;">Lĩnh vực</th>
+            <th style="width: 145px;">Phân loại</th>
+            <th style="width: 62px;">Điểm</th>
+            <th style="width: 155px;">Nhóm SP &amp; Tích hợp</th>
+            <th style="width: 210px;">Hiện trạng trao đổi (Tóm tắt)</th>
+            <th style="width: 170px;">Đầu mối / PM</th>
+            <th style="width: 118px;">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="partner-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 2: GOOGLE SHEETS REALTIME SYNC -->
+  <section id="sec-gsheet" class="section-block">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Phân hệ Kết nối &amp; Đồng bộ Google Sheets Thời gian thực</h2>
+        <p class="section-desc">
+          Đồng bộ hai chiều (GET/POST) với sheet <strong>DoiTac_DMP</strong> qua Google Apps Script Web App URL, kèm xuất CSV và lưu trạng thái cục bộ trên trình duyệt.
+        </p>
+      </div>
+      <span class="label-tag" id="gsheet-last-sync">Chưa đồng bộ Google Sheets</span>
+    </div>
+
+    <div class="grid-8-4">
+      <div class="layer" style="display: grid; gap: var(--space-md); align-content: start;">
+        <div class="control-row">
+          <div class="field-group">
+            <label class="field-label" for="gas-url-input">Google Apps Script Web App URL (đuôi /exec)</label>
+            <input id="gas-url-input" class="input-ctrl" type="text" placeholder="Dán đường dẫn Web App URL (/exec) triển khai từ script.google.com...">
+          </div>
+          <button type="button" class="btn btn-primary" onclick="saveUrlAndLoad()">Lưu URL &amp; Tải dữ liệu</button>
+        </div>
+
+        <div class="control-row">
+          <button type="button" class="btn btn-secondary" onclick="syncNow()">Đồng bộ ngay (GET/POST)</button>
+          <button type="button" class="btn btn-secondary" onclick="seedInitial32ToSheet()">Đẩy 32 đối tác khởi tạo lên Sheet</button>
+          <button type="button" class="btn btn-secondary" onclick="exportPartnersCsv()">Xuất CSV</button>
+          <button type="button" class="btn btn-danger" id="btn-reset-data" onclick="resetToOriginalData(this)">Khôi phục dữ liệu gốc</button>
+        </div>
+
+        <div id="gsheet-status-strip" class="notice-strip">
+          <span id="gsheet-status-text">Sẵn sàng. Dữ liệu thay đổi được tự động lưu vào trạng thái phiên làm việc; nhập Web App URL để đồng bộ lên Google Sheets.</span>
+        </div>
+
+        <div class="layer-white" style="display: grid; gap: var(--space-xs);">
+          <div class="label-tag">Hướng dẫn cài đặt Google Apps Script (5 bước)</div>
+          <ol style="margin: 0; padding-left: 1.2rem; font-size: 0.84rem; display: grid; gap: 4px;">
+            <li>Tạo Google Sheet mới, đặt tên tab chính xác là <strong>DoiTac_DMP</strong>.</li>
+            <li>Mở menu <strong>Tiện ích mở rộng &rarr; Apps Script</strong>, xóa mã mặc định và dán đoạn mã <code>Code.gs</code> ở khung bên phải.</li>
+            <li>Bấm <strong>Triển khai (Deploy) &rarr; Triển khai mới &rarr; Loại: Ứng dụng web (Web app)</strong>.</li>
+            <li>Chọn <strong>Thực thi dưới tư cách: Tôi</strong> và <strong>Ai có quyền truy cập: Bất kỳ ai (Anyone)</strong> rồi bấm Triển khai.</li>
+            <li>Sao chép URL <code>/exec</code> dán vào ô phía trên, bấm <strong>Lưu URL &amp; Tải dữ liệu</strong> hoặc <strong>Đẩy 32 đối tác khởi tạo lên Sheet</strong>.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="layer" style="display: grid; gap: var(--space-sm); align-content: start;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+          <span class="label-tag">Mã nguồn Google Apps Script (Code.gs · Sheet: DoiTac_DMP)</span>
+          <button type="button" class="btn btn-sm btn-secondary" id="btn-copy-codegs" onclick="copyCodeGs()">Sao chép Code.gs</button>
+        </div>
+        <div class="code-box" id="codegs-preview"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: QUY TRÌNH 5 BƯỚC & RACI -->
+  <section id="sec-workflow" class="section-block">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Quy trình Bán hàng 5 Bước &amp; Ma trận Phối hợp RACI (Nhóm 4 &harr; Nhóm 5)</h2>
+        <p class="section-desc">
+          Chuẩn hóa theo Mô hình 5 nhóm PTKD từ 15/11/2026 và Quy trình rút ngắn &ge; 50% thời gian triển khai trên DMP (VB 3776/VNPT-CLSP).
+        </p>
+      </div>
+      <span class="label-tag">N4 (5 NS · TP: Nguyễn Thị Thu Hiền) · N5 (7 NS · TP: Bùi Thị Thùy Dương)</span>
+    </div>
+
+    <div class="step-grid">
+      <article class="step-card">
+        <div class="step-num">Bước 1 · Nhóm 4 chủ trì</div>
+        <h3 class="step-title">Tìm &amp; đánh giá cơ hội</h3>
+        <p class="step-body">Khảo sát nhu cầu thị trường, đối thủ, năng lực cung cấp của CP; phân loại luồng Xanh/Vàng/Đỏ theo tiêu chí dimarket.vn. Chỉ tiêu N4: tối thiểu 1 mô hình mới/quý.</p>
+      </article>
+      <article class="step-card">
+        <div class="step-num">Bước 2 · Nhóm 4 chủ trì</div>
+        <h3 class="step-title">Phương án kinh doanh</h3>
+        <p class="step-body">Xây dựng Business Case: giá vốn, giá bán (AOV mục tiêu 20k–100k), biên lợi nhuận, chia sẻ doanh thu (QĐ 55 &amp; TTr 641), chọn luồng thanh toán TKC/TKTT hay ngoài VT.</p>
+      </article>
+      <article class="step-card is-n5">
+        <div class="step-num">Bước 3 · N4 + N5 phối hợp UAT</div>
+        <h3 class="step-title">Thẩm định &amp; Khai báo DMP/MBG</h3>
+        <p class="step-body">N4 hoàn thiện hợp đồng, pháp lý, API đối tác (2–7 ngày). <strong>N5</strong> chủ trì cấu hình kịch bản trên DMP/MBG, đầu số 1376, nghiệm thu UAT &amp; test cước VasCloud (3–5 ngày).</p>
+      </article>
+      <article class="step-card is-channel">
+        <div class="step-num">Bước 4 · Nhóm Kênh (N1/N2/N3)</div>
+        <h3 class="step-title">Bàn giao &amp; Triển khai bán</h3>
+        <p class="step-body">N4 bàn giao hồ sơ SP; nhóm kênh nhận chỉ tiêu &amp; tổ chức bán: N1 (Online/Truyền thông), N2 (Tổng đài), N3 (Ngân hàng/Ví/Chuỗi/SME). Không giao trùng chỉ tiêu DT.</p>
+      </article>
+      <article class="step-card">
+        <div class="step-num">Bước 5 · N4 + Kênh + N5</div>
+        <h3 class="step-title">Đánh giá, đối soát &amp; tối ưu</h3>
+        <p class="step-body">Theo dõi doanh thu, tỷ lệ chuyển đổi, gia hạn ngày/tháng, khiếu nại; N5 tổng hợp báo cáo BSC/KPI và quản trị rủi ro; đề xuất mở rộng, điều chỉnh hoặc dừng SP.</p>
+      </article>
+    </div>
+
+    <div class="layer">
+      <div class="tab-bar" role="tablist" aria-label="Chế độ xem RACI và nhân sự">
+        <button type="button" class="tab-btn is-active" onclick="switchWorkflowTab('raci', this)">Ma trận RACI 5 Nhóm PTKD</button>
+        <button type="button" class="tab-btn" onclick="switchWorkflowTab('sla', this)">SLA Triển khai DMP (VB 3776)</button>
+        <button type="button" class="tab-btn" onclick="switchWorkflowTab('team', this)">Cơ cấu &amp; Nhân sự N4 – N5</button>
+      </div>
+
+      <div id="wf-tab-raci" class="tab-panel is-active" style="padding-top: var(--space-md);">
+        <div class="control-row" style="margin-bottom: var(--space-sm); justify-content: space-between;">
+          <div class="field-group compact">
+            <label class="field-label" for="raci-filter">Lọc nhóm công việc RACI</label>
+            <select id="raci-filter" class="select-ctrl" onchange="renderRaciTable()">
+              <option value="ALL">Tất cả đầu việc trọng yếu</option>
+              <option value="NEW">1. Phát triển SP &amp; mô hình B2C mới</option>
+              <option value="CHN">2. Kinh doanh trên kênh (N1/N2/N3)</option>
+              <option value="DMP">3. Vận hành DMP/MBG &amp; Chính sách (N5)</option>
+              <option value="MKT">4. Truyền thông, Dữ liệu &amp; KPI</option>
+            </select>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center; font-size: 0.75rem;">
+            <span><span class="raci-badge raci-ar">A,R</span> Chịu trách nhiệm cuối &amp; Thực hiện</span>
+            <span><span class="raci-badge raci-r">R</span> Thực hiện</span>
+            <span><span class="raci-badge raci-c">C</span> Tham vấn</span>
+            <span><span class="raci-badge raci-i">I</span> Thông báo</span>
+          </div>
+        </div>
+        <div class="std-table-wrap">
+          <table class="std-table">
+            <thead>
+              <tr>
+                <th>Đầu việc phối hợp</th>
+                <th>N1 · Online &amp; TT</th>
+                <th>N2 · Tổng đài</th>
+                <th>N3 · Đối tác</th>
+                <th>N4 · Mô hình số mới</th>
+                <th>N5 · Chính sách &amp; NVKD</th>
+              </tr>
+            </thead>
+            <tbody id="raci-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="wf-tab-sla" class="tab-panel" style="padding-top: var(--space-md);">
+        <div class="std-table-wrap">
+          <table class="std-table">
+            <thead>
+              <tr>
+                <th>Bước</th>
+                <th>Nội dung công việc (Phụ lục 1 · VB 3776/VNPT-CLSP)</th>
+                <th>Đơn vị</th>
+                <th>Trước đây</th>
+                <th>Quy trình mới</th>
+                <th>Phương thức</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>2</td><td>Khai báo sản phẩm lên hệ thống Digital Market Place</td><td>VNPT-Media / Đối tác</td><td>3–5 ngày</td><td><strong>2 ngày</strong></td><td>Hệ thống DMP</td></tr>
+              <tr><td>3</td><td>Duyệt sản phẩm các cấp &amp; gửi thông tin cho VNPT-VinaPhone</td><td>VNPT-Media</td><td>1 ngày</td><td><strong>1 ngày</strong></td><td>Hệ thống DMP</td></tr>
+              <tr><td>4</td><td>VinaPhone tiếp nhận &amp; phản hồi (quá hạn mặc định đồng ý)</td><td>VNPT-VNP</td><td>3–5 ngày</td><td><strong>2 ngày</strong></td><td>Hệ thống DMP</td></tr>
+              <tr><td>5–6</td><td>Khai báo trên hệ thống quản lý thành phần DT &amp; rà soát</td><td>VNPT-Media / IT</td><td>4–6 ngày</td><td><strong>2–3 ngày</strong></td><td>Hệ thống IT</td></tr>
+              <tr><td>7–8</td><td>Phối hợp khai báo trên hệ thống NET / IT (nếu cần)</td><td>VNPT-NET / IT</td><td>5–7 ngày</td><td><strong>3 ngày</strong></td><td>Eoffice / Jira / OTT</td></tr>
+              <tr><td>9</td><td>Kết nối, tích hợp &amp; cấu hình hệ thống cung cấp dịch vụ với CP</td><td>VNPT-Media / CP</td><td>3–15 ngày</td><td><strong>2–7 ngày</strong></td><td>DMP &amp; API Đối tác</td></tr>
+              <tr><td>10–11</td><td>Test trừ cước VasCloud, nghiệm thu kỹ thuật &amp; đối soát thử nghiệm</td><td>VNPT-Media (N5)</td><td>8–15 ngày</td><td><strong>5–7 ngày</strong></td><td>DMP / VasCloud</td></tr>
+              <tr><td>13–15</td><td>Thông báo khai trương &amp; triển khai kinh doanh đến VNPT Tỉnh/TP</td><td>Media / VinaPhone</td><td>6–10 ngày</td><td><strong>4 ngày</strong></td><td>Eoffice / Email / OTT</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="wf-tab-team" class="tab-panel" style="padding-top: var(--space-md);">
+        <div class="grid-6-6">
+          <div class="layer-white">
+            <div class="label-tag">Nhóm 4 · Phát triển Mô hình Kinh doanh số mới (5 NS)</div>
+            <p style="margin: 4px 0 8px 0; font-size: 0.8125rem;">Lãnh đạo phụ trách: <strong>Phó phòng Hồ Công Huy</strong> · Chức năng: Nguồn SP mới, eSIM, Digital Goods, SIM du lịch, NDAKey, Business Case, POC/MVP.</p>
+            <ul style="margin: 0; padding-left: 1.1rem; font-size: 0.8125rem;">
+              <li><strong>Nguyễn Thị Thu Hiền</strong> (ID 31454) — Trưởng nhóm</li>
+              <li><strong>Đinh Thế Anh</strong> (ID 34290) — Thành viên</li>
+              <li><strong>Nguyễn Thị Thúy Hà</strong> (ID 29657) — Thành viên</li>
+              <li><strong>Đặng Huy Hiếu</strong> (ID 34358) — Thành viên</li>
+              <li><strong>Phạm Thanh Huyền</strong> (ID 34721) — Thành viên</li>
+            </ul>
+          </div>
+          <div class="layer-white">
+            <div class="label-tag">Nhóm 5 · Chính sách &amp; Nghiệp vụ Kinh doanh (7 NS)</div>
+            <p style="margin: 4px 0 8px 0; font-size: 0.8125rem;">Lãnh đạo phụ trách: <strong>Phó phòng Nguyễn Đăng Nguyên</strong> (Chính sách DV: Hồ Công Huy) · Chức năng: DMP/MBG, UAT, đầu số 1376, Google Play, Ứng, GreenNet, KPI/BSC.</p>
+            <ul style="margin: 0; padding-left: 1.1rem; font-size: 0.8125rem;">
+              <li><strong>Bùi Thị Thùy Dương</strong> (ID 34535) — Trưởng nhóm</li>
+              <li><strong>Phạm Kim Anh</strong> (ID 34532) · <strong>Nguyễn Quang Huy</strong> (ID 35131)</li>
+              <li><strong>Hứa Sỹ Long</strong> (ID 34537) · <strong>Nguyễn Thị Phước Tâm</strong> (ID 34216)</li>
+              <li><strong>Hà Thị Hồng Thái</strong> (ID 34534) — Đầu mối SP DMP</li>
+              <li><strong>Đặng Thị Hương Quỳnh</strong> (ID 34519) — Nghỉ thai sản đến 27/12/2026</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: MẪU THƯ MỜI HỢP TÁC -->
+  <section id="sec-invite" class="section-block">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Mẫu Thư mời Hợp tác Chuẩn gửi Đối tác (CP mới)</h2>
+        <p class="section-desc">
+          Chọn đối tác từ danh mục hoặc nhập thông tin riêng để sinh thư mời hợp tác chuẩn VNPT-Media cho sàn dimarket.vn (đầu số 1376).
+        </p>
+      </div>
+    </div>
+
+    <div class="grid-8-4">
+      <div class="layer" style="display: grid; gap: var(--space-sm);">
+        <div class="control-row">
+          <div class="field-group">
+            <label class="field-label" for="invite-partner-select">Nạp nhanh từ Danh mục 32 đối tác</label>
+            <select id="invite-partner-select" class="select-ctrl" onchange="populateInviteFromPartner(this.value)">
+              <option value="">-- Chọn đối tác để điền tự động --</option>
+            </select>
+          </div>
+          <div class="field-group compact">
+            <label class="field-label" for="invite-model-select">Mô hình đề xuất</label>
+            <select id="invite-model-select" class="select-ctrl" onchange="generateInviteLetter()">
+              <option value="voucher">E-Voucher / License Code (Đa kênh)</option>
+              <option value="sub">Thuê bao Nội dung số (1376)</option>
+              <option value="esim">Combo Bundle / KIT eSIM</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <div class="field-group">
+            <label class="field-label" for="invite-cp-name">Tên Đối tác / Thương hiệu</label>
+            <input id="invite-cp-name" class="input-ctrl" type="text" value="Lotte Cinema Việt Nam" oninput="generateInviteLetter()">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="invite-contact-name">Người nhận / Bộ phận</label>
+            <input id="invite-contact-name" class="input-ctrl" type="text" value="Ms. Như / Bộ phận B2B &amp; Event" oninput="generateInviteLetter()">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="invite-product-name">Sản phẩm dự kiến đưa lên DMP</label>
+            <input id="invite-product-name" class="input-ctrl" type="text" value="E-code vé xem phim &amp; Combo F&amp;B" oninput="generateInviteLetter()">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="invite-subject">Tiêu đề Email đề xuất</label>
+          <input id="invite-subject" class="input-ctrl" type="text">
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="invite-body">Nội dung Thư mời hợp tác (có thể chỉnh sửa trước khi sao chép)</label>
+          <textarea id="invite-body" class="textarea-ctrl" style="min-height: 250px;"></textarea>
+        </div>
+
+        <div class="control-row">
+          <button type="button" class="btn btn-primary" id="btn-copy-invite" onclick="copyInviteLetter()">Sao chép toàn bộ Thư mời</button>
+          <button type="button" class="btn btn-secondary" id="btn-copy-subject" onclick="copyInviteSubject()">Sao chép Tiêu đề Email</button>
+        </div>
+      </div>
+
+      <div class="layer" style="display: grid; gap: var(--space-sm); align-content: start;">
+        <div class="label-tag">Điểm nhấn thuyết phục CP trong Thư mời</div>
+        <div class="layer-white" style="font-size: 0.84rem; display: grid; gap: var(--space-xs);">
+          <p style="margin: 0;"><strong>1. Tệp khách hàng &amp; Kênh thanh toán:</strong> Tiếp cận thuê bao VinaPhone (trừ cước TKC/TKTT qua đầu số 1376) cùng hệ sinh thái thanh toán số ngoài viễn thông (VNPT Money, ví, ngân hàng số) trên sàn <strong>dimarket.vn</strong>.</p>
+          <p style="margin: 0;"><strong>2. Thời gian Go-live thần tốc:</strong> Quy trình tích hợp được Tập đoàn VNPT chuẩn hóa rút ngắn &ge; 50% thời gian (2–7 ngày tích hợp API/kho mã, UAT 3–5 ngày).</p>
+          <p style="margin: 0;"><strong>3. Đa dạng đóng gói:</strong> Bán lẻ Digital Goods, thuê bao định kỳ miễn phí ngày đầu, hoặc ghép gói Bundle Data / KIT eSIM Du lịch &amp; Giải trí.</p>
+          <p style="margin: 0;"><strong>4. Đầu mối tiếp nhận:</strong> Nhóm Phát triển Mô hình KD số mới (VNPT VAS) — Trưởng nhóm Nguyễn Thị Thu Hiền; Phối hợp nghiệp vụ DMP: Hà Thị Hồng Thái (094 664 0236).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: PLAYBOOK TIẾP CẬN & XỬ LÝ -->
+  <section id="sec-playbook" class="section-block">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Playbook Tiếp cận &amp; Xử lý Tình huống khi đã liên hệ Đối tác</h2>
+        <p class="section-desc">
+          Hướng dẫn thực chiến cho Nhóm 4 và Nhóm 5 dựa trên các ca đối tác thực tế (Got It, UrBox, CGV, Golden Gate, Ticketbox, Base.vn/VinCSS).
+        </p>
+      </div>
+    </div>
+
+    <div class="grid-auto">
+      <article class="layer" style="border-top: 3px solid var(--badge-green-border);">
+        <div class="label-tag">Kịch bản 1 · Đã có đầu mối &amp; đang chờ họp (Got It, UrBox, Golden Gate)</div>
+        <h3 style="margin: 6px 0; font-size: 1rem;">Chốt nhanh Business Case &amp; API kho mã</h3>
+        <ul style="margin: 0; padding-left: 1.1rem; font-size: 0.84rem; display: grid; gap: 4px;">
+          <li><strong>Với Aggregator (Got It, UrBox):</strong> Xin ngay tài liệu Biz API (lấy Category/Brand/SKU, xuất e-voucher lẻ theo từng giao dịch B2C, kiểm tra trạng thái) và bảng chiết khấu theo dải doanh số.</li>
+          <li><strong>Với F&amp;B dè dặt (Golden Gate):</strong> Gửi ngay 1-pager "Kế hoạch kênh bán &amp; Mục tiêu doanh thu" (MyVNPT, VNPT Money, dimarket.vn, quà tặng VinaPhone Plus); đồng thời chạy song song Goldsun Food &amp; QSR để tạo thế cạnh tranh.</li>
+        </ul>
+      </article>
+
+      <article class="layer" style="border-top: 3px solid var(--badge-yellow-border);">
+        <div class="label-tag">Kịch bản 2 · Vướng hóa đơn, chứng từ &amp; hạn mức TKC (CGV, Ticketbox, Prep)</div>
+        <h3 style="margin: 6px 0; font-size: 1rem;">Phối hợp Nhóm 5 &amp; Kế toán gỡ nút thắt pháp lý</h3>
+        <ul style="margin: 0; padding-left: 1.1rem; font-size: 0.84rem; display: grid; gap: 4px;">
+          <li><strong>Ca CGV (chỉ xuất phiếu thu/xuất kho, không xuất HĐĐT khi bán voucher):</strong> N4 gửi ngay chứng từ mẫu (TT 219/2013 &amp; NĐ 123/2020) cho <strong>Nhóm 5</strong> &amp; Kế toán thẩm định phương án ký gửi/xuất hóa đơn đối soát cuối tháng trước khi cam kết đơn &ge; 20 triệu.</li>
+          <li><strong>Ca giá trị cao 500k–6.000k (Ticketbox, Prep, Tripi):</strong> Không ép qua TKC 1376; định tuyến qua cổng thanh toán ngoài viễn thông trên dimarket.vn hoặc chia gói thuê bao tháng/Hybrid (chu kỳ đầu ngoài VT, gia hạn VT).</li>
+        </ul>
+      </article>
+
+      <article class="layer" style="border-top: 3px solid var(--badge-red-border);">
+        <div class="label-tag">Kịch bản 3 · Định tuyến lại đối tác B2B/SaaS (Base.vn, VinCSS, NCS, NetSecurity)</div>
+        <h3 style="margin: 6px 0; font-size: 1rem;">Chuyển tuyến đúng về Nhóm 3 (Kinh doanh Đối tác)</h3>
+        <ul style="margin: 0; padding-left: 1.1rem; font-size: 0.84rem; display: grid; gap: 4px;">
+          <li><strong>Nhận diện Đỏ:</strong> Sản phẩm SaaS tính theo user/tháng giá trị lớn (&ge; 1 triệu/tháng), dịch vụ SOC 24/7, Pentest, FIDO2, chữ ký số doanh nghiệp không phù hợp bán lẻ B2C qua 1376/dimarket.vn.</li>
+          <li><strong>Xử lý:</strong> Đánh dấu <strong>Đỏ</strong> trên DMP, bàn giao hồ sơ cho <strong>Nhóm 3 (Trưởng nhóm Đặng Duy Thắng)</strong> đóng gói Combo SME (Internet/Cloud/HĐĐT + phần mềm) theo cơ chế giao thoa RACI.</li>
+        </ul>
+      </article>
+
+      <article class="layer" style="border-top: 3px solid var(--primary);">
+        <div class="label-tag">Kịch bản 4 · Checklist bàn giao N4 &rarr; N5 trước UAT &amp; Go-live</div>
+        <h3 style="margin: 6px 0; font-size: 1rem;">4 điều kiện bắt buộc để Nhóm 5 khai báo 1376</h3>
+        <ul style="margin: 0; padding-left: 1.1rem; font-size: 0.84rem; display: grid; gap: 4px;">
+          <li><strong>1. Pháp lý &amp; Giá vốn:</strong> Hợp đồng/phụ lục ký xong, biên lợi nhuận đạt chuẩn, quy định rõ chính sách hủy (bảo lưu cuối chu kỳ hay hủy ngay như QuickFun/Vui học).</li>
+          <li><strong>2. Kịch bản SMS/Web:</strong> Mã SP, giá cước (VAT), cú pháp DK/DM/HUY/MK 1376, mẫu MT1/MT2, chính sách miễn phí ngày đầu (nếu có).</li>
+          <li><strong>3. Kỹ thuật API &amp; Test cước:</strong> Tài khoản test VasCloud, API cấp mã/tài khoản, kiểm tra trừ cước không trừ gộp TKC+TKTT.</li>
+          <li><strong>4. Đầu mối CSKH:</strong> Hotline CP &amp; FAQ gửi TT DVKH (18001091) trước khi thông báo tỉnh/TP.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- SECTION 6: ROADMAP DMP 2026-2029 -->
+  <section id="sec-roadmap" class="section-block">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Roadmap Digital Market Place Giai đoạn 2026–2029</h2>
+        <p class="section-desc">
+          Lộ trình chuyển dịch từ mô hình DCB (1376) sang Nền tảng Thương mại điện tử Nội dung số &amp; Bộ KIT eSIM theo Tờ trình 641/TTr-VNPT Media-VAS.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid-8-4">
+      <div class="chart-wrap">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+          <div>
+            <div style="font-weight: 700; font-size: 0.95rem;">Dự báo Doanh thu DMP theo Ngành hàng 2027–2029 (Đơn vị: Tỷ đồng)</div>
+            <div class="label-tag">Nguồn: Phụ lục 02 · Tờ trình 641/TTr-VNPT Media-VAS (29/10/2026)</div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); font-size: 0.75rem;">
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--data-1);"></span> License (70k)</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--data-2);"></span> OTT/VOD/Music (35k)</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--data-3);"></span> Edu/Book/Game (20k)</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--data-4);"></span> E-Voucher/AI (100k)</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:var(--data-5);"></span> KIT eSIM (100k)</span>
+          </div>
+        </div>
+        <div id="roadmap-svg-host" style="width: 100%; min-height: 220px;"></div>
+      </div>
+
+      <div class="layer" style="display: grid; gap: var(--space-sm); align-content: start;">
+        <div class="label-tag">Giả định thị trường &amp; Cơ chế doanh thu (TTr 641)</div>
+        <div class="layer-white" style="font-size: 0.8125rem; display: grid; gap: 6px;">
+          <div><strong>Tệp thị trường:</strong> 56,1 triệu người mua trực tuyến (90% qua di động = 50,49 triệu). Tỷ lệ thâm nhập DMP năm 2027: 0,5% (252.450 KH), tăng +15% (2028) &amp; +20% (2029).</div>
+          <div><strong>Phân chia DT nội dung số qua TK viễn thông:</strong> VNPT-Media <strong>90%</strong> · VNPT TTP <strong>5%</strong> · Tập đoàn <strong>5%</strong>.</div>
+          <div><strong>Phân chia DT KIT eSIM:</strong> Bán hàng (TTP/Media) <strong>12,7%</strong> · VNPT-Net <strong>75%</strong> · Công ty Mẹ còn lại.</div>
+          <div><strong>Sản lượng gói thuần NDS:</strong> 782.595 (2027) &rarr; 899.984 (2028) &rarr; 1.079.981 (2029).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-cards">
+      <article class="rm-card is-current">
+        <h3 class="rm-year">2026 · Khai trương &amp; Số hóa quy trình</h3>
+        <ul class="rm-list">
+          <li><strong>11/02/2026:</strong> GTM dimarket.vn (VB 198, &gt;20 SP).</li>
+          <li><strong>03–05/2026:</strong> VB 1616 &amp; 3776 rút ngắn SLA &ge; 50%, thí điểm 2 năm (06/2026–05/2028).</li>
+          <li><strong>05–10/2026:</strong> Bổ sung Norton, Reavol, Elsa, Office 365, KidsUp Pro, Gosu, QuickFun, Học Mãi, English AI; miễn phí ngày đầu.</li>
+          <li><strong>10–11/2026:</strong> TTr 641 đổi mã sang TMĐT, thêm cổng ngoài VT &amp; eSIM; vận hành 5 nhóm PTKD từ 15/11/2026.</li>
+        </ul>
+      </article>
+      <article class="rm-card">
+        <h3 class="rm-year">2027 · Tăng tốc Digital Goods &amp; eSIM</h3>
+        <ul class="rm-list">
+          <li><strong>Khách hàng:</strong> 252.450 người mua qua DMP.</li>
+          <li><strong>Sản lượng:</strong> 782.595 gói NDS + 12.623 KIT eSIM.</li>
+          <li><strong>Tổng doanh thu:</strong> <strong>30,673 tỷ đồng</strong> (NDS: 29,410 tỷ; KIT eSIM: 1,262 tỷ).</li>
+          <li><strong>Trọng tâm:</strong> Đưa E-Voucher (Got It, UrBox, CGV/Lotte/Galaxy, Goldsun/QSR) &amp; EdTech (VUIHOC, ELSA, Prep) lên sàn.</li>
+        </ul>
+      </article>
+      <article class="rm-card">
+        <h3 class="rm-year">2028 · Mở rộng +15% &amp; Tổng kết thí điểm</h3>
+        <ul class="rm-list">
+          <li><strong>Khách hàng:</strong> 290.318 người mua (+15%).</li>
+          <li><strong>Sản lượng:</strong> 899.984 gói NDS + 14.516 KIT eSIM.</li>
+          <li><strong>Tổng doanh thu:</strong> <strong>35,274 tỷ đồng</strong> (NDS: 33,822 tỷ; KIT eSIM: 1,452 tỷ).</li>
+          <li><strong>Mốc quản trị:</strong> Kết thúc giai đoạn thí điểm 24 tháng (31/05/2028), tổng kết báo cáo Tập đoàn hoàn thiện cơ chế kinh tế.</li>
+        </ul>
+      </article>
+      <article class="rm-card">
+        <h3 class="rm-year">2029 · Quy mô TMĐT Toàn diện (+20%)</h3>
+        <ul class="rm-list">
+          <li><strong>Khách hàng:</strong> 348.381 người mua (+20%).</li>
+          <li><strong>Sản lượng:</strong> 1.079.981 gói NDS + 17.419 KIT eSIM.</li>
+          <li><strong>Tổng doanh thu:</strong> <strong>42,328 tỷ đồng</strong> (NDS: 40,586 tỷ; KIT eSIM: 1,742 tỷ).</li>
+          <li><strong>Định vị:</strong> DMP trở thành nền tảng phân phối &amp; quản trị SPDV số chủ lực của VNPT.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- FOOTER SOURCE ATTRIBUTION -->
+  <footer style="border-top: var(--rule); padding-top: var(--space-md); font-size: 0.78rem; color: var(--on-surface-variant);">
+    <strong>Nguồn dữ liệu tổng hợp:</strong> VB 1616/VNPT-CLSP (06/03/2026), VB 3776/VNPT-CLSP (15/05/2026), VB 198/VNPT VNP-KHCN (11/02/2026), các VB bổ sung gói cước 2952/4181/201/390/595 (2026), VB 1139/VNPT-MEDIA-CLSP (30/09/2026), TBKL 10/TB-VNPT-Media-VAS (19/10/2026), Tờ trình 641/TTr-VNPT Media-VAS (29/10/2026), Mô hình 5 nhóm PTKD (15/11/2026), Book1.csv &amp; Doi_Tac_Tiem_Nang_VNPT_Mo_Rong-v2.csv.
+  </footer>
+</main>
+
+<!-- PARTNER DETAIL / ADD / EDIT MODAL -->
+<div id="partner-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal-dialog">
+    <div class="modal-head">
+      <h3 class="modal-title" id="modal-title-text">Chi tiết &amp; Cập nhật Đối tác</h3>
+      <button type="button" class="btn btn-sm btn-ghost" onclick="closePartnerModal()">Đóng [Esc]</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="edit-partner-id">
+      <div class="form-grid-2">
+        <div class="field-group">
+          <label class="field-label" for="f-name">Tên SPDV / Đối tác *</label>
+          <input id="f-name" class="input-ctrl" type="text">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-cat">Lĩnh vực (Category) *</label>
+          <input id="f-cat" class="input-ctrl" type="text">
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="field-group">
+          <label class="field-label" for="f-status">Phân loại màu sắc (Trạng thái DMP) *</label>
+          <select id="f-status" class="select-ctrl">
+            <option value="XANH">Xanh · Tiềm năng DMP B2C</option>
+            <option value="VANG">Vàng · Đã liên hệ / Cần thẩm định</option>
+            <option value="DO">Đỏ · Không tiềm năng DMP B2C (Chuyển B2B)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-score">Điểm phù hợp DMP (0–10)</label>
+          <input id="f-score" class="input-ctrl" type="number" step="0.5" min="0" max="10">
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="field-group">
+          <label class="field-label" for="f-group">Nhóm sản phẩm DMP (Tờ trình 641)</label>
+          <input id="f-group" class="input-ctrl" type="text">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-model">Mô hình tích hợp &amp; Thanh toán DMP</label>
+          <input id="f-model" class="input-ctrl" type="text">
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="f-progress">Hiện trạng trao đổi &amp; Tiến trình xử lý tiếp theo</label>
+        <textarea id="f-progress" class="textarea-ctrl" style="min-height: 92px;"></textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="f-desc">Mô tả SPDV &amp; Đánh giá chi tiết theo tiêu chí dimarket.vn</label>
+        <textarea id="f-desc" class="textarea-ctrl" style="min-height: 92px;"></textarea>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="field-group">
+          <label class="field-label" for="f-retail">Giá bán lẻ thị trường</label>
+          <input id="f-retail" class="input-ctrl" type="text">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-wholesale">Giá bán buôn / Chiết khấu</label>
+          <input id="f-wholesale" class="input-ctrl" type="text">
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="field-group">
+          <label class="field-label" for="f-channel">Kênh bán hiện có</label>
+          <input id="f-channel" class="input-ctrl" type="text">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-web">Website / App (Domain)</label>
+          <input id="f-web" class="input-ctrl" type="text">
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="field-group">
+          <label class="field-label" for="f-contact">Contact liên hệ &amp; Địa chỉ</label>
+          <input id="f-contact" class="input-ctrl" type="text">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-pm">PM phụ trách (VNPT VAS)</label>
+          <input id="f-pm" class="input-ctrl" type="text">
+        </div>
+      </div>
+
+      <div id="modal-inline-msg" class="notice-strip warn" style="display: none;">
+        <span id="modal-inline-msg-text"></span>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <div>
+        <button type="button" class="btn btn-danger" id="btn-modal-delete" onclick="deleteCurrentPartner(this)">Xóa đối tác</button>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm);">
+        <button type="button" class="btn btn-secondary" onclick="usePartnerInInvite()">Lập thư mời CP này</button>
+        <button type="button" class="btn btn-ghost" onclick="closePartnerModal()">Hủy</button>
+        <button type="button" class="btn btn-primary" onclick="savePartnerForm()">Lưu thay đổi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<api-shim></api-shim>
+<script>
+const CODE_GS_TEMPLATE = `// Google Apps Script (Code.gs) - Dong bo Sheet "DoiTac_DMP"
+const SHEET_NAME = 'DoiTac_DMP';
+const HEADERS = [
+  'id','stt','name','category','status','statusLabel','score',
+  'group641','integrationModel','progress','description',
+  'retailPrice','wholesalePrice','salesChannel','website','contact','pm','updatedAt'
+];
+
+function getSheet_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(SHEET_NAME);
+  if (!sh) {
+    sh = ss.insertSheet(SHEET_NAME);
+    sh.appendRow(HEADERS);
+  } else if (sh.getLastRow() === 0) {
+    sh.appendRow(HEADERS);
+  }
+  return sh;
+}
+
+function doGet(e) {
+  const sh = getSheet_();
+  const rows = sh.getDataRange().getValues();
+  if (rows.length <= 1) {
+    return jsonOut_({ ok: true, data: [] });
+  }
+  const hdr = rows[0];
+  const data = rows.slice(1).filter(r => r[0] || r[2]).map(r => {
+    const obj = {};
+    hdr.forEach((k, i) => obj[k] = r[i]);
+    return obj;
+  });
+  return jsonOut_({ ok: true, data: data });
+}
+
+function doPost(e) {
+  const payload = JSON.parse(e.postData.contents || '{}');
+  const action = payload.action || 'syncAll';
+  const sh = getSheet_();
+
+  if (action === 'seed' || action === 'syncAll') {
+    const list = payload.data || [];
+    sh.clearContents();
+    sh.appendRow(HEADERS);
+    if (list.length > 0) {
+      const matrix = list.map(item => HEADERS.map(h => item[h] ?? ''));
+      sh.getRange(2, 1, matrix.length, HEADERS.length).setValues(matrix);
+    }
+    return jsonOut_({ ok: true, count: list.length, action: action });
+  }
+
+  if (action === 'upsert' && payload.item) {
+    const item = payload.item;
+    const rows = sh.getDataRange().getValues();
+    let rowIdx = -1;
+    for (let i = 1; i < rows.length; i++) {
+      if (String(rows[i][0]) === String(item.id)) { rowIdx = i + 1; break; }
+    }
+    const rowArr = HEADERS.map(h => item[h] ?? '');
+    if (rowIdx > 0) sh.getRange(rowIdx, 1, 1, HEADERS.length).setValues([rowArr]);
+    else sh.appendRow(rowArr);
+    return jsonOut_({ ok: true, action: 'upsert', id: item.id });
+  }
+
+  if (action === 'delete' && payload.id) {
+    const rows = sh.getDataRange().getValues();
+    for (let i = rows.length - 1; i >= 1; i--) {
+      if (String(rows[i][0]) === String(payload.id)) sh.deleteRow(i + 1);
+    }
+    return jsonOut_({ ok: true, action: 'delete', id: payload.id });
+  }
+
+  return jsonOut_({ ok: false, error: 'Unsupported action' });
+}
+
+function jsonOut_(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
+const INITIAL_PARTNERS = [
+  {
+    id: `P01`, stt: 1, name: `Got It`, category: `E-voucher Aggregator / B2B`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 9.0,
+    group641: `E-Voucher, AI (Digital Goods)`,
+    integrationModel: `Biz API cấp mã e-voucher + Thanh toán đa kênh DMP`,
+    progress: `Đã liên hệ qua email và nhận phản hồi. Đối tác đã gửi thông tin, đã chuyển anh Thắng đánh giá. Việc cần làm: Set họp trao đổi phương án hợp tác & API.`,
+    description: `Nền tảng quà tặng số đa thương hiệu (300+ thương hiệu); có Biz API lấy Category/Brand/Product, phát hành voucher, gửi SMS/email và kiểm tra trạng thái. Ưu tiên RẤT CAO làm nguồn hàng lõi.`,
+    retailPrice: `Theo thương hiệu/SKU`, wholesalePrice: `Chiết khấu theo thỏa thuận B2B`,
+    salesChannel: `Website/App; API; Biz Portal; SMS/Zalo; B2B`,
+    website: `www.gotit.vn`, contact: `Hiền Đỗ: hien.do@gotit.vn / 0975355888 · 102 Nguyễn Đình Chính, TP.HCM`, pm: `thaihth`
+  },
+  {
+    id: `P02`, stt: 2, name: `UrBox`, category: `E-voucher Aggregator / B2B`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 9.0,
+    group641: `E-Voucher, AI (Digital Goods)`,
+    integrationModel: `API kho e-voucher đa thương hiệu + Thanh toán đa kênh`,
+    progress: `Đã liên hệ qua email và nhận phản hồi đầu mối. Chưa trao đổi lại. Việc cần làm: Set họp tìm hiểu phương thức cung cấp voucher và tỷ lệ chiết khấu.`,
+    description: `Nền tảng quà tặng doanh nghiệp & e-voucher đa thương hiệu (1.000+ thương hiệu), phục vụ loyalty, phúc lợi, marketing. Ưu tiên RẤT CAO làm nguồn hàng đa thương hiệu.`,
+    retailPrice: `Theo thương hiệu/SKU; nhiều mệnh giá`, wholesalePrice: `Đang đàm phán chiết khấu`,
+    salesChannel: `Website/App; API; e-voucher; Giải pháp DN`,
+    website: `urbox.vn`, contact: `Vân Đỗ Hà: van.dh@urbox.vn / (+84) 975 402 488 · Hà Nội & TP.HCM`, pm: `thaihth`
+  },
+  {
+    id: `P03`, stt: 3, name: `CGV`, category: `Giải trí`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 8.5,
+    group641: `E-Voucher, AI / OTT, VOD, Music`,
+    integrationModel: `eGift/e-voucher vé & F&B + Bundle giải trí/Data`,
+    progress: `Đã nắm chính sách: chiết khấu cố định theo bảng giá (thẻ quà tặng 0%), bắt buộc HĐ >= 20 triệu, chỉ xuất phiếu thu/phiếu xuất kho khi bán voucher (HĐĐT xuất khi KH đổi vé tại rạp theo TT 219/2013 & NĐ 123/2020), hỗ trợ gia hạn trước 1 tháng. Cần báo cáo LĐ & chốt kế hoạch hợp tác.`,
+    description: `Hệ thống rạp chiếu phim hàng đầu với eGift/e-voucher vé xem phim và combo bắp nước. Thương hiệu mạnh, nhu cầu thường xuyên, phù hợp bundle giải trí/data.`,
+    retailPrice: `Theo mệnh giá/loại vé/combo`, wholesalePrice: `Fix theo bảng giá CGV; HĐ >= 20tr`,
+    salesChannel: `Website/App; eGift; B2B/Đối tác`,
+    website: `www.cgv.vn/default/gift/`, contact: `Vũ Đức Lương (Sr. Sale Mgr) · +84 912 800 089 · 7/28 Thành Thái, TP.HCM`, pm: `thaihth`
+  },
+  {
+    id: `P04`, stt: 4, name: `Golden Gate`, category: `Ẩm thực`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 8.0,
+    group641: `E-Voucher, AI (Digital Goods)`,
+    integrationModel: `Voucher thương hiệu chuỗi F&B + Thanh toán đa kênh`,
+    progress: `Đã set họp online nhưng đối tác chia sẻ còn ít. Đối tác yêu cầu VNPT gửi bản kế hoạch về kênh bán và mục tiêu doanh thu để xem xét.`,
+    description: `Hệ sinh thái F&B đa thương hiệu (GoGi House, Kichi-Kichi, Manwah, Hutong, iSushi…). Lợi thế danh mục lớn, phù hợp tạo nhóm voucher ăn uống tần suất sử dụng cao.`,
+    retailPrice: `Theo thương hiệu/nhà hàng/mệnh giá`, wholesalePrice: `Chờ gửi kế hoạch DT để báo giá`,
+    salesChannel: `Website/App/Merchant; Corporate Gift`,
+    website: `goldengate.vn`, contact: `Nguyễn Ngọc Phương Mai: mai.nnp@ggg.com.vn / 0353402084 · 60 Giang Văn Minh, HN`, pm: `thaihth`
+  },
+  {
+    id: `P05`, stt: 5, name: `Học Mãi`, category: `Giáo dục`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 9.5,
+    group641: `Education, Book, Game`,
+    integrationModel: `Thuê bao ngày 5.000đ (HM5) qua 1376 & dimarket.vn`,
+    progress: `Đã họp trao đổi với đối tác, đồng ý triển khai (đã ra gói HM5 tại VB 390/VNPT VNP-SP ngày 11/09/2026, miễn phí ngày đầu). Tiếp tục theo dõi sản lượng & mở rộng gói.`,
+    description: `Ứng dụng học tập lớp 1–12, khóa học Tiếng Anh, Tiếng Trung; kho video bài giảng, đề thi, >500 giáo viên. Top thương hiệu giáo dục được phụ huynh quan tâm.`,
+    retailPrice: `5.000đ/ngày (HM5 trên DMP)`, wholesalePrice: `Chia sẻ doanh thu thuê bao`,
+    salesChannel: `Facebook, App, Web, DMP 1376`,
+    website: `hocmai.vn`, contact: `Mr Nguyệt Ánh: 0386273070 · Mr Trương Minh Hoàng: 0906655995 · 25 Lê Văn Lương, HN`, pm: `Vân`
+  },
+  {
+    id: `P06`, stt: 6, name: `OLM`, category: `Giáo dục`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 9.0,
+    group641: `Education, Book, Game`,
+    integrationModel: `Thuê bao/License học tập qua 1376 & dimarket.vn`,
+    progress: `Đã họp trao đổi với đối tác, đồng ý triển khai. Cần hoàn thiện hồ sơ đưa lên DMP theo quy trình 5 bước (N4 -> N5).`,
+    description: `Nền tảng học tập lớp 1–12 và ngoại ngữ, chất lượng nội dung tốt, bài bản, thuộc nhóm thương hiệu EdTech hàng đầu cho phụ huynh và học sinh.`,
+    retailPrice: `Theo gói học tập K12`, wholesalePrice: `Đang hoàn thiện phương án hợp tác`,
+    salesChannel: `Facebook, App, Web`,
+    website: `olm.vn`, contact: `Mr Thế: 0986557525`, pm: `Vân`
+  },
+  {
+    id: `P07`, stt: 7, name: `VNES English`, category: `Giáo dục`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 8.0,
+    group641: `Education, Book, Game`,
+    integrationModel: `Gói cước học tiếng Anh qua 1376 / dimarket.vn`,
+    progress: `Đã trao đổi với đối tác và đồng ý hợp tác, nhưng VNPT-Media chưa triển khai các bước tiếp theo. Cần rà soát lại phương án & bàn giao triển khai.`,
+    description: `Giải pháp học tiếng Anh trực tuyến thuộc hệ sinh thái Tân Phong.`,
+    retailPrice: `Theo gói khóa học`, wholesalePrice: `Thỏa thuận hợp tác`,
+    salesChannel: `Kênh trực tuyến & đối tác`,
+    website: `Đang cập nhật`, contact: `Chị Hương Tân Phong: +84 904999009`, pm: `Chị Vân + Thiệu`
+  },
+  {
+    id: `P08`, stt: 8, name: `VNESCHOOL`, category: `Giáo dục`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 8.0,
+    group641: `Education, Book, Game`,
+    integrationModel: `Gói cước học tập trực tuyến qua DMP`,
+    progress: `Đã trao đổi với đối tác và đồng ý hợp tác, nhưng VNPT-Media chưa triển khai các bước tiếp theo. Cần kích hoạt lại luồng bước 2–3.`,
+    description: `Nền tảng giáo dục trực tuyến VNESCHOOL của Tân Phong.`,
+    retailPrice: `Theo gói học tập`, wholesalePrice: `Thỏa thuận hợp tác`,
+    salesChannel: `Kênh trực tuyến & đối tác`,
+    website: `Đang cập nhật`, contact: `Chị Hương Tân Phong: +84 904999009`, pm: `Chị Vân + Thiệu`
+  },
+  {
+    id: `P09`, stt: 9, name: `Phòng học 3D`, category: `Giáo dục`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 7.5,
+    group641: `Education, Book, Game`,
+    integrationModel: `Gói nội dung học tập tương tác 3D trên DMP`,
+    progress: `Đã trao đổi với đối tác và đồng ý hợp tác, nhưng VNPT-Media chưa triển khai các bước tiếp theo. Đánh giá lại giá trị gói bán lẻ B2C.`,
+    description: `Mô hình phòng học trực quan 3D hỗ trợ giảng dạy và tự học.`,
+    retailPrice: `Theo gói dịch vụ`, wholesalePrice: `Thỏa thuận hợp tác`,
+    salesChannel: `Kênh giáo dục & đối tác`,
+    website: `Đang cập nhật`, contact: `Chị Hương Tân Phong: +84 904999009`, pm: `Chị Vân + Thiệu`
+  },
+  {
+    id: `P10`, stt: 10, name: `IVIVU`, category: `Vé Giải trí + Du lịch`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 8.0,
+    group641: `E-Voucher, AI / Bộ KIT eSIM Du lịch`,
+    integrationModel: `Affiliate / Thanh toán ngoài VT + Ghép KIT eSIM Du lịch`,
+    progress: `Đã liên hệ đầu mối, đối tác đồng ý hợp tác. Cần chốt luồng thanh toán ngoài tài khoản viễn thông & kết nối API/voucher.`,
+    description: `Combo du lịch, nghỉ dưỡng, vé máy bay giá trị 500k–5.000k. Hút chi tiêu du lịch/giải trí ngoại tệ, tệp khách hàng xê dịch lớn.`,
+    retailPrice: `500k – 5.000k`, wholesalePrice: `Chiết khấu 15% – 20%`,
+    salesChannel: `App / Web`,
+    website: `ivivu.com`, contact: `Vi Vân: 0902410070`, pm: `Thiệu`
+  },
+  {
+    id: `P11`, stt: 11, name: `Globaltix`, category: `Vé Giải trí + Du lịch`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 8.5,
+    group641: `E-Voucher, AI / Bộ KIT eSIM Du lịch`,
+    integrationModel: `API vé vui chơi + Thanh toán ngoài VT / KIT eSIM Du lịch`,
+    progress: `22/10: Đã họp và email yêu cầu đối tác cung cấp toplist sản phẩm tại Việt Nam; đối tác đã gửi toplist. Tiến hành chọn SKU top để tích hợp.`,
+    description: `Vé công viên, nhạc hội quốc tế cho khách hàng thích du lịch, giải trí. Hút chi tiêu ngoại tệ và tệp xê dịch.`,
+    retailPrice: `500k – 5.000k`, wholesalePrice: `Affiliate ~5%`,
+    salesChannel: `App / Web`,
+    website: `globaltix.com`, contact: `Moon Lý: 0922288800`, pm: `Thiệu`
+  },
+  {
+    id: `P12`, stt: 12, name: `KKday`, category: `Vé Giải trí + Du lịch`,
+    status: `VANG`, statusLabel: `Vàng · Đã liên hệ`, score: 8.5,
+    group641: `E-Voucher, AI / Bộ KIT eSIM Du lịch`,
+    integrationModel: `Partner API / Affiliate + Ghép Bộ KIT eSIM Du lịch`,
+    progress: `20/10: Đối tác đã gửi email mời hợp tác. Đặt lịch họp đàm phán chiết khấu và tích hợp nguồn vé + tour cho dimarket.vn & bộ KIT eSIM.`,
+    description: `Nền tảng đặt vé tham quan, tour trải nghiệm và dịch vụ du lịch quốc tế/nội địa lớn tại châu Á.`,
+    retailPrice: `Đa dạng theo tour/vé`, wholesalePrice: `Theo thỏa thuận Partner/Affiliate`,
+    salesChannel: `App / Web`,
+    website: `kkday.com`, contact: `Nguyen Gia Phu Thuan (Felix) · +84 937 311 337 · felix.nguyen@kkday.com · VPBank Tower, 05 Điện Biên Phủ, HN`, pm: `Thiệu`
+  },
+  {
+    id: `P13`, stt: 13, name: `NetSecurity / ATM (Bảo mật & BigData/AI)`, category: `License`,
+    status: `DO`, statusLabel: `Đỏ · Không tiềm năng DMP B2C`, score: 3.5,
+    group641: `License (Security, Productivity) – Chuyển tuyến B2B`,
+    integrationModel: `Chuyển giao Nhóm 3 (Kinh doanh Đối tác) khai thác dự án B2B`,
+    progress: `Đã set lịch trao đổi với anh Thắng (Trưởng nhóm 3) ngày 30/10. Giải pháp SOC 24/7, Pentest, BigData doanh nghiệp không phù hợp bán lẻ B2C trên dimarket.vn.`,
+    description: `An toàn thông tin mạng (SOC 24/7, Pentest, Threat Intelligence), nền tảng AI & BigData (ISM, AIG, IC 360), phần mềm đấu giá trực tuyến.`,
+    retailPrice: `Theo dự án / gói DN`, wholesalePrice: `Liên danh / Đại lý B2B`,
+    salesChannel: `Kênh B2B / Dự án doanh nghiệp`,
+    website: `Đang cập nhật`, contact: `Công ty CP An Toàn Mạng (NetSecurity / ATM)`, pm: `Kim Anh`
+  },
+  {
+    id: `P14`, stt: 14, name: `IntrustCA (Dịch vụ tin cậy & Pháp lý số)`, category: `License`,
+    status: `DO`, statusLabel: `Đỏ · Không tiềm năng DMP B2C`, score: 4.0,
+    group641: `License (Security, Productivity) – Chuyển tuyến B2B`,
+    integrationModel: `Chuyển giao Nhóm 3 (Kinh doanh Đối tác) tích hợp SME/B2B`,
+    progress: `Đã set lịch trao đổi với anh Thắng ngày 30/10. Chữ ký số từ xa, dấu thời gian, công chứng số, eContract thiên về B2B/chính phủ, chuyển Nhóm 3 phối hợp.`,
+    description: `Chữ ký số từ xa IntrustCA, dấu thời gian IntrustTSA, xác thực eIDCheck (C06), hợp đồng & công chứng điện tử DSS-eContract / Intrust eNotary.`,
+    retailPrice: `Theo gói doanh nghiệp/tổ chức`, wholesalePrice: `Chiết khấu đại lý B2B`,
+    salesChannel: `Kênh B2B / SME`,
+    website: `Đang cập nhật`, contact: `Công ty CP Intrust (IntrustCA)`, pm: `Kim Anh`
+  },
+  {
+    id: `P15`, stt: 16, name: `Pluxee Việt Nam (Sodexo)`, category: `E-voucher Aggregator / B2B`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 8.5,
+    group641: `E-Voucher, AI (Digital Goods)`,
+    integrationModel: `API cấp mã tự động + Thanh toán ngoài viễn thông / B2B2C`,
+    progress: `Chưa liên hệ. Việc cần làm: Gửi email giới thiệu nhu cầu hợp tác nguồn hàng e-voucher cho VinaPhone Plus / dimarket.vn và đặt lịch họp trao đổi chiết khấu.`,
+    description: `Phù hợp cao làm nguồn cung E-Voucher đa thương hiệu trên dimarket.vn (AOV ~100k); cần làm rõ API cấp mã lẻ theo từng giao dịch B2C. Tập đoàn toàn cầu uy tín.`,
+    retailPrice: `50k – 5.000k theo SKU`, wholesalePrice: `Chiết khấu B2B theo sản lượng cam kết`,
+    salesChannel: `Website/App; API; B2B Portal; e-voucher`,
+    website: `www.pluxee.vn`, contact: `Hotline: 1900 4456 · Form B2B pluxee.vn · 126 Nguyễn Thị Minh Khai, TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P16`, stt: 17, name: `LynkiD`, category: `E-voucher Aggregator / B2B`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 9.0,
+    group641: `E-Voucher, AI (Digital Goods)`,
+    integrationModel: `Tích hợp API kho quà + Thanh toán đa kênh (TKC & Ví/NH)`,
+    progress: `Chưa liên hệ. Việc cần làm: Liên hệ bộ phận Partnership/BD trao đổi kết nối API kho quà đổi điểm lên MyVNPT / VNPT Money / dimarket.vn.`,
+    description: `Rất sát mô hình DMP: sẵn hạ tầng API kho quà mở gắn với hệ sinh thái ngân hàng và hàng ngàn thương hiệu bán lẻ, F&B; nhiều voucher mệnh giá vừa/nhỏ.`,
+    retailPrice: `Theo SKU hoặc đổi điểm 0Đ`, wholesalePrice: `Chiết khấu đại lý / Rev-share qua API`,
+    salesChannel: `App LynkiD; API tích hợp; Kho quà đối tác`,
+    website: `lynkid.vn`, contact: `Hotline: 1900 636 835 · support@lynkid.vn · Hà Nội & TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P17`, stt: 18, name: `TAPTAP (VUI Việt Nam)`, category: `E-voucher Aggregator / B2B`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 8.5,
+    group641: `E-Voucher, AI (Digital Goods)`,
+    integrationModel: `API cấp mã e-voucher + Thanh toán đa kênh / Hybrid`,
+    progress: `Chưa liên hệ. Việc cần làm: Gửi email tới partnerships@taptap.com.vn đề xuất hợp tác cross-loyalty và phân phối gói voucher F&B/tiện lợi.`,
+    description: `Tệp thương hiệu F&B/tiện lợi tiêu dùng hàng ngày cao (The Coffee House, Jollibee, 7-Eleven, Galaxy Cinema…), dễ tạo SKU 20k–100k bán trên dimarket.vn.`,
+    retailPrice: `20k – 500k theo SKU`, wholesalePrice: `Chiết khấu B2B / Affiliate theo lượt đổi`,
+    salesChannel: `App TAPTAP; API; Đối tác liên kết`,
+    website: `taptap.com.vn`, contact: `partnerships@taptap.com.vn · (028) 7304 6446 / 1900 888 884 · 198 NTMK, TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P18`, stt: 19, name: `Lotte Cinema Việt Nam`, category: `Giải trí`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 9.5,
+    group641: `E-Voucher, AI / OTT, VOD, Music`,
+    integrationModel: `API/Kho e-code vé xem phim + Bundle Data / eSIM Giải trí`,
+    progress: `Chưa liên hệ. Việc cần làm: Liên hệ đầu mối B2B/Event hỏi chính sách giá sỉ e-code vé xem phim và combo bắp nước.`,
+    description: `Hệ thống rạp lớn thứ 2 VN; cực kỳ phù hợp DMP (tương đồng CGV nhưng chiết khấu B2B cởi mở hơn), dễ đóng gói e-code vé phim hoặc ghép Bộ KIT eSIM Giải trí.`,
+    retailPrice: `75k – 150k/vé; Combo 80k – 150k`, wholesalePrice: `Giá sỉ B2B linh hoạt theo số lượng`,
+    salesChannel: `Website/App; e-code; B2B`,
+    website: `www.lottecinemavn.com`, contact: `Ms. Như: 0938 834 481 (nhutran@lotte.vn) · Ms. Nhi: 0849 181 279 · Q.7, TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P19`, stt: 20, name: `Galaxy Cinema`, category: `Giải trí`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 9.0,
+    group641: `E-Voucher, AI / OTT, VOD, Music`,
+    integrationModel: `Kho e-code / Ticket Voucher + Bundle Data / eSIM Giải trí`,
+    progress: `Chưa liên hệ. Việc cần làm: Liên hệ trực tiếp đầu mối Gift Voucher lấy báo giá sỉ Ticket Voucher / e-code cho chiến dịch bundle.`,
+    description: `Thương hiệu rạp Việt mạnh, quen thuộc giới trẻ; giá vé sỉ rõ ràng (từ 95k ~ sát AOV 100k nhóm E-Voucher trên DMP), triển khai nhanh.`,
+    retailPrice: `Từ 95k/Ticket Voucher 2D`, wholesalePrice: `Ưu đãi chiết khấu theo số lượng B2B`,
+    salesChannel: `Website/App; e-voucher/Voucher giấy`,
+    website: `www.galaxycine.vn`, contact: `Ms. Gia Vy: 0901 986 408 (vyog@galaxystudio.vn) · 1900 2224 · Q.3, TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P20`, stt: 21, name: `Ticketbox`, category: `Giải trí`,
+    status: `VANG`, statusLabel: `Vàng · Cần thẩm định kỹ thuật`, score: 7.5,
+    group641: `E-Voucher, AI (Vé sự kiện)`,
+    integrationModel: `Affiliate / API đặt vé sự kiện qua thanh toán ngoài VT`,
+    progress: `Chưa liên hệ. Việc cần làm: Thẩm định luồng thanh toán ngoài viễn thông trên DMP (vì vé 100k–5tr vượt hạn mức TKC) & đề xuất mini-app/mã giảm giá vé.`,
+    description: `Nền tảng phân phối vé sự kiện âm nhạc, liveshow lớn nhất VN (thuộc Tiki). Hút tệp Gen Z săn vé concert, phù hợp hội viên VinaPhone Plus.`,
+    retailPrice: `100k – 5.000k/vé`, wholesalePrice: `Hoa hồng Affiliate / Chia sẻ phí dịch vụ`,
+    salesChannel: `Website/App Ticketbox; Đối tác ví`,
+    website: `ticketbox.vn`, contact: `Hotline: 1900 6408 · support@ticketbox.vn · 285 CMT8, Q.10, TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P21`, stt: 22, name: `Goldsun Food`, category: `Ẩm thực`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 8.5,
+    group641: `E-Voucher, AI (Digital Goods)`,
+    integrationModel: `API/e-voucher chuỗi nhà hàng + Thanh toán đa kênh`,
+    progress: `Chưa liên hệ. Việc cần làm: Liên hệ đầu mối B2B/RedPlus đề xuất hợp tác phân phối e-voucher chuỗi >200 nhà hàng (King BBQ, ThaiExpress, Hotpot Story…).`,
+    description: `Bổ sung trực tiếp cho ca Golden Gate đang khựng; danh mục >200 nhà hàng lẩu/nướng lớn dễ đóng gói voucher 100k trên DMP, đàm phán B2B linh hoạt hơn.`,
+    retailPrice: `100k – 1.000k theo mệnh giá`, wholesalePrice: `Chiết khấu đại lý B2B theo cam kết DT`,
+    salesChannel: `App RedPlus; Website; e-voucher DN`,
+    website: `goldsunfood.vn`, contact: `Hotline: 1900 234 546 · info@goldsunfood.vn · Hà Nội & TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P22`, stt: 23, name: `QSR Việt Nam`, category: `Ẩm thực`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 8.0,
+    group641: `E-Voucher, AI (Digital Goods)`,
+    integrationModel: `e-voucher mệnh giá nhỏ/vừa + Thanh toán TKC / Ví`,
+    progress: `Chưa liên hệ. Việc cần làm: Liên hệ văn phòng HCM/HN kết nối bộ phận B2B Voucher cho chuỗi The Pizza Company, Dairy Queen, Swensen's.`,
+    description: `Vận hành >130 cửa hàng ẩm thực & thức ăn nhanh. Mệnh giá combo nhỏ (50k–200k) rất vừa tầm thanh toán qua TKC VinaPhone và đầu số 1376.`,
+    retailPrice: `50k – 500k/voucher hoặc combo`, wholesalePrice: `Chiết khấu B2B theo SL phát hành`,
+    salesChannel: `Website/App; e-voucher; Đối tác`,
+    website: `qsrvietnam.com`, contact: `VP HCM: (028) 7308 3377 · VP HN: (024) 7300 1680 · 77 Trần Nhân Tôn, TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P23`, stt: 24, name: `VUIHOC.vn`, category: `Giáo dục`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 9.5,
+    group641: `Education, Book, Game`,
+    integrationModel: `Thuê bao ngày/tháng qua đầu số 1376 & dimarket.vn + Hybrid`,
+    progress: `Chưa liên hệ (lưu ý mở rộng thêm từ mô hình Vui học VHO7/VHO30 tại VB 198). Đề xuất đóng gói Data học tập + Tài khoản VUIHOC K12.`,
+    description: `Nền tảng học trực tuyến K12 (>2.000 video bài giảng). Khớp 100% mô hình Học Mãi/OLM đang chạy trên DMP (gói ngày/tháng, gia hạn qua TKC hoặc Hybrid).`,
+    retailPrice: `500k – 2.500k/khóa năm`, wholesalePrice: `Chiết khấu đại lý / Rev-share`,
+    salesChannel: `App/Web VUIHOC; Đại lý/Trường học`,
+    website: `vuihoc.vn`, contact: `Công ty CP VH EdTech · Tel: 0987 810 990 · hotro@vuihoc.vn · 69 Vũ Trọng Phụng, HN`, pm: `Chưa gán`
+  },
+  {
+    id: `P24`, stt: 25, name: `Prep.vn`, category: `Giáo dục`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 8.5,
+    group641: `Education, Book, Game / E-Voucher, AI`,
+    integrationModel: `Cấp mã kích hoạt + Thanh toán Hybrid (Đầu ngoài VT, gia hạn VT)`,
+    progress: `Chưa liên hệ. Việc cần làm: Liên hệ bộ phận Partnership đề xuất phân phối mã khóa học luyện thi IELTS/TOEIC/HSK tích hợp AI.`,
+    description: `Thương hiệu EdTech tăng trưởng nóng, ARPU cao; giá khóa trọn gói lớn nên tối ưu khi áp dụng mô hình Hybrid hoặc chia gói theo tháng trên DMP.`,
+    retailPrice: `1.000k – 6.000k/lộ trình`, wholesalePrice: `Chiết khấu đại lý mã kích hoạt / Affiliate`,
+    salesChannel: `Website/App Prep; Đối tác giáo dục`,
+    website: `prepedu.com`, contact: `Công ty CP Công nghệ Prep · Hotline: 0931 428 899 · 34 Láng Hạ, Hà Nội`, pm: `Chưa gán`
+  },
+  {
+    id: `P25`, stt: 26, name: `ELSA Speak Việt Nam`, category: `Giáo dục`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 9.5,
+    group641: `Education, Book, Game / E-Voucher, AI`,
+    integrationModel: `API cấp License Code gói 1/3/6 tháng + eSIM Giáo dục`,
+    progress: `Chưa liên hệ trực tiếp B2B kho mã dài hạn (trước đó đã khai trương gói ES1/ES7 tại VB 4181). Đàm phán mua sỉ / phân phối License Code ELSA Pro & Premium.`,
+    description: `Rất phù hợp DMP: tích hợp đơn giản qua License Code, chia gói ngắn hạn qua TKC/1376 hoặc ghép Bộ KIT eSIM Giáo dục; nhiều kinh nghiệm làm với nhà mạng.`,
+    retailPrice: `500k – 2.000k/gói 6T–trọn đời`, wholesalePrice: `Giá sỉ Telco/DN (chiết khấu 20%–40%)`,
+    salesChannel: `App ELSA Speak; Mã kích hoạt B2B`,
+    website: `vn.elsaspeak.com`, contact: `Công ty TNHH ELSA · Hotline: 1900 633 413 · support@elsanow.io · Tân Bình, TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P26`, stt: 27, name: `Klook Việt Nam`, category: `Vé Giải trí + Du lịch`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 8.5,
+    group641: `E-Voucher, AI / Bộ KIT eSIM Du lịch`,
+    integrationModel: `Affiliate / Partner API + Ghép Bộ KIT eSIM Du lịch`,
+    progress: `Chưa liên hệ. Việc cần làm: Đăng ký/liên hệ chương trình Klook Partner & Affiliate tích hợp vé tham quan, khu vui chơi và ghép eSIM du lịch.`,
+    description: `OTA hàng đầu châu Á (Sun World, VinWonders, Disneyland…). Tương đồng KKday/Globaltix, cực phù hợp bán kèm Bộ KIT eSIM Du lịch & thanh toán ngoài VT.`,
+    retailPrice: `100k – 10.000k/dịch vụ`, wholesalePrice: `Hoa hồng Affiliate 5% – 12%`,
+    salesChannel: `App/Web Klook; Partner API / Affiliate`,
+    website: `www.klook.com/vi/`, contact: `support@klook.com · affiliate.klook.com · 15B/8 Lê Thánh Tôn, Q.1, TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P27`, stt: 28, name: `VNtix`, category: `Vé Giải trí + Du lịch`,
+    status: `XANH`, statusLabel: `Xanh · Tiềm năng`, score: 9.0,
+    group641: `E-Voucher, AI / Bộ KIT eSIM Du lịch`,
+    integrationModel: `API xuất vé QR tức thì + Thanh toán đa kênh / eSIM Du lịch`,
+    progress: `Chưa liên hệ. Việc cần làm: Liên hệ hotline/email lấy bảng giá đại lý B2B vé Sun World, VinWonders và các khu vui chơi nội địa.`,
+    description: `Nền tảng B2B kết nối >100 điểm đến tại VN, xuất vé QR tức thì qua API, không lo tồn kho, giải quyết bài toán nguồn vé gốc mà không cần ký lẻ tẻ từng khu.`,
+    retailPrice: `150k – 1.500k/vé`, wholesalePrice: `Giá gốc đại lý B2B (chiết khấu 5%–15%)`,
+    salesChannel: `Cổng B2B VNtix; API xuất vé QR`,
+    website: `vntix.vn`, contact: `Công ty TNHH VNtix · Tel: 0935 088 001 · info@vntix.vn · Ngũ Hành Sơn, Đà Nẵng`, pm: `Chưa gán`
+  },
+  {
+    id: `P28`, stt: 29, name: `Tripi (VNTravel / VNLife)`, category: `Vé Giải trí + Du lịch`,
+    status: `VANG`, statusLabel: `Vàng · Cần thẩm định phạm vi`, score: 7.0,
+    group641: `E-Voucher, AI (Dịch vụ du lịch)`,
+    integrationModel: `White-label / Travel API + Thanh toán ngoài viễn thông`,
+    progress: `Chưa liên hệ. Việc cần làm: Rà soát ranh giới sản phẩm trên dimarket.vn & đối soát QĐ 55 trước khi liên hệ B2B Travel API tích hợp vé máy bay/khách sạn.`,
+    description: `Hạ tầng API du lịch mạnh (đã kiểm chứng trên hàng chục app ngân hàng) nhưng thiên về vé máy bay/khách sạn giá trị lớn (500k–10tr).`,
+    retailPrice: `500k – 10.000k/giao dịch`, wholesalePrice: `Chia sẻ hoa hồng đại lý vé/khách sạn`,
+    salesChannel: `App Tripi; White-label / Travel API`,
+    website: `tripi.vn`, contact: `Hotline: 1900 2084 · hotro@tripi.vn · 36 Hoàng Cầu / 37 Lê Văn Lương, HN`, pm: `Chưa gán`
+  },
+  {
+    id: `P29`, stt: 30, name: `VinCSS (An ninh mạng)`, category: `License`,
+    status: `DO`, statusLabel: `Đỏ · Không tiềm năng DMP B2C`, score: 4.0,
+    group641: `License (Security, Productivity) – Chuyển tuyến B2B`,
+    integrationModel: `Chuyển giao Nhóm 3 (Kinh doanh Đối tác) khai thác dự án B2B`,
+    progress: `Chưa liên hệ. Tương tự NetSecurity/ATM: giải pháp FIDO2/Pentest cho ngân hàng/DN không phù hợp bán lẻ B2C 1376. Bàn giao Nhóm 3 chào thầu OEM/liên danh.`,
+    description: `Công ty an ninh mạng thuộc Vingroup; mạnh về xác thực không mật khẩu FIDO2, bảo mật IoT, Pentest, SOC.`,
+    retailPrice: `Theo gói dự án / License DN`, wholesalePrice: `Chiết khấu đại lý / Liên danh B2B`,
+    salesChannel: `Kênh B2B / Dự án DN & Chính phủ`,
+    website: `vincss.net`, contact: `+84 96 725 9794 · Vincom Center, 45A Lý Tự Trọng, Q.1, TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P30`, stt: 31, name: `NCS (An ninh mạng Quốc gia VN)`, category: `License`,
+    status: `DO`, statusLabel: `Đỏ · Không tiềm năng DMP B2C`, score: 3.5,
+    group641: `License (Security, Productivity) – Chuyển tuyến B2B`,
+    integrationModel: `Chuyển giao Nhóm 3 (Kinh doanh Đối tác) liên danh B2B`,
+    progress: `Chưa liên hệ. Dịch vụ giám sát SOC 24/7 cho tổ chức/DN không thuộc luồng thuần nội dung số B2C trên DMP. Chuyển Nhóm 3 liên danh B2B.`,
+    description: `Chuyên sâu dịch vụ giám sát SOC 24/7, Threat Intelligence, Pentest cho tổ chức, doanh nghiệp.`,
+    retailPrice: `Theo gói thuê bao SOC / dự án`, wholesalePrice: `Chia sẻ doanh thu / Liên danh B2B`,
+    salesChannel: `Kênh B2B / Dự án tổ chức`,
+    website: `ncsgroup.vn`, contact: `Tel: (024) 85 888 000 · info@ncsgroup.vn · Hà Nội & TP.HCM`, pm: `Chưa gán`
+  },
+  {
+    id: `P31`, stt: 32, name: `MISA (MISA AMIS / eSign)`, category: `License`,
+    status: `VANG`, statusLabel: `Vàng · Cần thẩm định gói SME/Cá nhân`, score: 6.5,
+    group641: `License (Security, Productivity)`,
+    integrationModel: `Phân phối License gói nhỏ / Bán chéo SME (Phối hợp Nhóm 3)`,
+    progress: `Chưa liên hệ. Nhóm License là chủ lực DMP (AOV ~70k), cần lọc riêng gói nhẹ/cá nhân (eSign cá nhân/hộ KD) hoặc phối hợp Nhóm 3 làm Combo SME.`,
+    description: `Nền tảng quản trị DN hợp nhất (AMIS, CukCuk, MISA eSign) với tệp SME cực lớn trùng khớp tệp Internet/HĐĐT VNPT.`,
+    retailPrice: `1.500k – 20.000k/năm tùy gói`, wholesalePrice: `Hoa hồng đại lý / Cross-sell SME`,
+    salesChannel: `Kênh B2B / Đại lý / CTV`,
+    website: `www.misa.vn`, contact: `090 488 5833 · (024) 3762 7891 · contact@misa.com.vn · Cầu Giấy, Hà Nội`, pm: `Chưa gán`
+  },
+  {
+    id: `P32`, stt: 33, name: `Base.vn`, category: `License`,
+    status: `DO`, statusLabel: `Đỏ · Không tiềm năng DMP B2C`, score: 5.0,
+    group641: `License (Security, Productivity) – Chuyển tuyến B2B`,
+    integrationModel: `Chuyển giao Nhóm 3 (Kinh doanh Đối tác) đóng gói Combo SME`,
+    progress: `Chưa liên hệ. Phần mềm SaaS quản trị DN theo user/tháng (>= 1tr/tháng) không phù hợp bán lẻ B2C trên dimarket.vn; chuyển Nhóm 3 đóng gói kèm đường truyền/Cloud VNPT.`,
+    description: `Nền tảng SaaS quản trị & điều hành doanh nghiệp phục vụ >9.000 DN tại Việt Nam.`,
+    retailPrice: `Từ 1.000k/tháng (theo user)`, wholesalePrice: `Chia sẻ doanh thu / Kênh phân phối B2B`,
+    salesChannel: `Kênh B2B / Tư vấn chuyển đổi số`,
+    website: `base.vn`, contact: `MB: (024) 2244 1313 · MN: 0896 69 1313 · contact@base.vn · HUD Tower, HN`, pm: `Chưa gán`
+  }
+];
+
+const RACI_DATA = [
+  { group: `NEW`, task: `Nghiên cứu thị trường, tìm nguồn SP số mới, phân loại Xanh/Vàng/Đỏ`, n1: `C`, n2: `C`, n3: `C`, n4: `A,R`, n5: `` },
+  { group: `NEW`, task: `Xây dựng Phương án kinh doanh: giá vốn, giá bán, biên, chia sẻ DT`, n1: `C`, n2: `C`, n3: `C`, n4: `A,R`, n5: `C` },
+  { group: `NEW`, task: `Thử nghiệm POC/MVP; hoàn thiện điều kiện kỹ thuật, pháp lý, thương mại`, n1: ``, n2: ``, n3: ``, n4: `A,R`, n5: `C` },
+  { group: `NEW`, task: `Chọn kênh bán, bàn giao hồ sơ sản phẩm cho nhóm kênh triển khai`, n1: `R`, n2: `R`, n3: `R`, n4: `A,R`, n5: `I` },
+  { group: `NEW`, task: `Theo dõi vòng đời SP mới; đề xuất điều chỉnh hoặc dừng kinh doanh`, n1: `C`, n2: `C`, n3: `C`, n4: `A,R`, n5: `I` },
+  { group: `CHN`, task: `Kế hoạch bán, chỉ tiêu, doanh thu kênh (Online / Tổng đài / Đối tác)`, n1: `A,R`, n2: `A,R`, n3: `A,R`, n4: `C`, n5: `C` },
+  { group: `CHN`, task: `Chuyển tuyến & đóng gói giải pháp CNTT / Combo B2B-SME (Đỏ)`, n1: `C`, n2: ``, n3: `A,R`, n4: `C`, n5: `` },
+  { group: `DMP`, task: `Cấu hình, khai báo dịch vụ trên DMP/MBG; nghiệm thu UAT, test cước 1376`, n1: `C`, n2: `C`, n3: `C`, n4: `C`, n5: `A,R` },
+  { group: `DMP`, task: `Chính sách giá, gói cước, khuyến mại B2C; dịch vụ hiện hữu (Play/Ứng/GreenNet)`, n1: `C`, n2: ``, n3: ``, n4: ``, n5: `A,R` },
+  { group: `DMP`, task: `Quản lý tài nguyên đầu số (1376), domain (dimarket.vn), giấy phép chuyên ngành`, n1: `C`, n2: `C`, n3: `C`, n4: `C`, n5: `A,R` },
+  { group: `DMP`, task: `Quy trình, tổng hợp, cảnh báo rủi ro & biểu mẫu thanh toán chung của Phòng`, n1: `R`, n2: `R`, n3: `R`, n4: `R`, n5: `A,R` },
+  { group: `MKT`, task: `Kế hoạch truyền thông tháng, CTKM Big Promotion & phân tích dữ liệu chiến dịch`, n1: `A,R`, n2: `C`, n3: `C`, n4: `C`, n5: `C` },
+  { group: `MKT`, task: `Kế hoạch năm/quý, báo cáo SXKD, giao & theo dõi BSC/KPI các nhóm`, n1: `R`, n2: `R`, n3: `R`, n4: `R`, n5: `A,R` }
+];
+
+let partners = [];
+let activeStatusFilter = `ALL`;
+let gasWebAppUrl = ``;
+let lastSyncTime = ``;
+
+function cloneInitialPartners() {
+  return INITIAL_PARTNERS.map(p => Object.assign({}, p));
+}
+
+function escapeHtml(str) {
+  return String(str ?? ``)
+    .replace(/&/g, `&amp;`)
+    .replace(/</g, `&lt;`)
+    .replace(/>/g, `&gt;`)
+    .replace(/"/g, `&quot;`)
+    .replace(/'/g, `&#39;`);
+}
+
+function getStatusMeta(status) {
+  if (status === `XANH`) return { rowCls: `row-green`, badgeCls: `badge-green`, dotCls: `dot-green`, short: `Xanh · Tiềm năng` };
+  if (status === `DO`) return { rowCls: `row-red`, badgeCls: `badge-red`, dotCls: `dot-red`, short: `Đỏ · Không B2C` };
+  return { rowCls: `row-yellow`, badgeCls: `badge-yellow`, dotCls: `dot-yellow`, short: `Vàng · Đã liên hệ` };
+}
+
+async function persistAppState() {
+  try {
+    if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+      await window.notebookAppApi.setAppState({
+        partners: partners,
+        gasWebAppUrl: gasWebAppUrl,
+        lastSyncTime: lastSyncTime,
+        activeStatusFilter: activeStatusFilter
+      });
+    }
+  } catch (err) {
+    setSyncNotice(`Lỗi lưu trạng thái cục bộ: ` + (err && err.message ? err.message : err), `warn`);
+  }
+}
+
+function setSyncNotice(msg, kind) {
+  const strip = document.getElementById(`gsheet-status-strip`);
+  const txt = document.getElementById(`gsheet-status-text`);
+  if (strip) {
+    strip.className = `notice-strip` + (kind ? ` ` + kind : ``);
+  }
+  if (txt) txt.textContent = msg;
+}
+
+function setActiveNav(el) {
+  document.querySelectorAll(`.nav-link`).forEach(a => a.classList.remove(`is-active`));
+  if (el) el.classList.add(`is-active`);
+}
+
+function populateCategoryOptions() {
+  const sel = document.getElementById(`partner-cat-filter`);
+  if (!sel) return;
+  const current = sel.value;
+  const cats = Array.from(new Set(partners.map(p => p.category).filter(Boolean))).sort();
+  sel.innerHTML = `<option value="ALL">Tất cả lĩnh vực (` + cats.length + `)</option>` +
+    cats.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join(``);
+  if (cats.includes(current)) sel.value = current;
+
+  const invSel = document.getElementById(`invite-partner-select`);
+  if (invSel) {
+    const curInv = invSel.value;
+    invSel.innerHTML = `<option value="">-- Chọn đối tác để điền tự động --</option>` +
+      partners.map(p => `<option value="${escapeHtml(p.id)}">[${escapeHtml(p.status)}] ${escapeHtml(p.name)} — ${escapeHtml(p.category)}</option>`).join(``);
+    if (curInv) invSel.value = curInv;
+  }
+}
+
+function updateSummaryCounts() {
+  const total = partners.length;
+  const g = partners.filter(p => p.status === `XANH`).length;
+  const y = partners.filter(p => p.status === `VANG`).length;
+  const r = partners.filter(p => p.status === `DO`).length;
+
+  const elTotal = document.getElementById(`kpi-total`);
+  const elBreak = document.getElementById(`kpi-breakdown`);
+  if (elTotal) elTotal.textContent = String(total);
+  if (elBreak) elBreak.textContent = `${g} Xanh · ${y} Vàng · ${r} Đỏ`;
+
+  const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = String(val); };
+  setTxt(`cnt-all`, total);
+  setTxt(`cnt-green`, g);
+  setTxt(`cnt-yellow`, y);
+  setTxt(`cnt-red`, r);
+}
+
+function setStatusFilter(status) {
+  activeStatusFilter = status;
+  [`ALL`, `XANH`, `VANG`, `DO`].forEach(s => {
+    const btn = document.getElementById(`pill-` + s);
+    if (btn) btn.classList.toggle(`is-active`, s === status);
+  });
+  applyPartnerFilters();
+  persistAppState();
+}
+
+function applyPartnerFilters() {
+  const searchEl = document.getElementById(`partner-search`);
+  const catEl = document.getElementById(`partner-cat-filter`);
+  const sortEl = document.getElementById(`partner-sort`);
+  const tbody = document.getElementById(`partner-tbody`);
+  const matchEl = document.getElementById(`table-match-count`);
+  if (!tbody) return;
+
+  const q = (searchEl ? searchEl.value : ``).trim().toLowerCase();
+  const cat = catEl ? catEl.value : `ALL`;
+  const sortBy = sortEl ? sortEl.value : `stt_asc`;
+
+  let list = partners.filter(p => {
+    if (activeStatusFilter !== `ALL` && p.status !== activeStatusFilter) return false;
+    if (cat !== `ALL` && p.category !== cat) return false;
+    if (q) {
+      const hay = `${p.name} ${p.category} ${p.group641} ${p.integrationModel} ${p.progress} ${p.description} ${p.contact} ${p.pm}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const orderWeight = { XANH: 1, VANG: 2, DO: 3 };
+  list.sort((a, b) => {
+    if (sortBy === `score_desc`) return (Number(b.score) || 0) - (Number(a.score) || 0);
+    if (sortBy === `status`) return (orderWeight[a.status] || 9) - (orderWeight[b.status] || 9) || (a.stt - b.stt);
+    if (sortBy === `name_asc`) return String(a.name).localeCompare(String(b.name), `vi`);
+    return (Number(a.stt) || 999) - (Number(b.stt) || 999);
+  });
+
+  if (matchEl) matchEl.textContent = `Đang hiển thị ${list.length} / ${partners.length} đối tác`;
+
+  if (list.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 1.5rem; color: var(--on-surface-variant);">Không tìm thấy đối tác nào khớp bộ lọc hiện tại. Bấm "Tất cả" hoặc xóa từ khóa tìm kiếm.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = list.map(p => {
+    const meta = getStatusMeta(p.status);
+    const labelText = p.statusLabel || meta.short;
+    return `
+      <tr class="${meta.rowCls}" onclick="openEditModal('${escapeHtml(p.id)}')">
+        <td style="font-weight:700; font-variant-numeric:tabular-nums;">${escapeHtml(p.stt)}</td>
+        <td>
+          <div class="clamp-1" style="font-weight:700;" title="${escapeHtml(p.name)}">${escapeHtml(p.name)}</div>
+          <div class="clamp-1" style="font-size:0.74rem; color:var(--on-surface-variant);">${escapeHtml(p.website || ``)}</div>
+        </td>
+        <td><div class="clamp-2">${escapeHtml(p.category)}</div></td>
+        <td>
+          <span class="status-badge ${meta.badgeCls}">
+            <span class="dot-swatch ${meta.dotCls}" aria-hidden="true"></span>
+            <span>${escapeHtml(labelText.split(`·`)[0].trim())}</span>
+          </span>
+        </td>
+        <td><span class="score-num">${Number(p.score || 0).toFixed(1)}</span></td>
+        <td><div class="clamp-2" title="${escapeHtml(p.group641)} — ${escapeHtml(p.integrationModel)}">${escapeHtml(p.group641 || p.integrationModel)}</div></td>
+        <td><div class="clamp-2" title="${escapeHtml(p.progress)}">${escapeHtml(p.progress || `Chưa cập nhật`)}</div></td>
+        <td><div class="clamp-2" title="${escapeHtml(p.contact)}">${escapeHtml(p.pm ? `PM: ` + p.pm + ` · ` : ``)}${escapeHtml(p.contact)}</div></td>
+        <td onclick="event.stopPropagation()">
+          <div style="display:flex; gap:4px;">
+            <button type="button" class="btn btn-sm btn-secondary" onclick="openEditModal('${escapeHtml(p.id)}')">Chi tiết</button>
+            <button type="button" class="btn btn-sm btn-ghost" title="Đổi nhanh màu trạng thái" onclick="cyclePartnerStatus('${escapeHtml(p.id)}')">Đổi màu</button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join(``);
+}
+
+function cyclePartnerStatus(id) {
+  const idx = partners.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  const order = [`XANH`, `VANG`, `DO`];
+  const next = order[(order.indexOf(partners[idx].status) + 1) % order.length];
+  partners[idx].status = next;
+  partners[idx].statusLabel = next === `XANH` ? `Xanh · Tiềm năng` : next === `VANG` ? `Vàng · Đã liên hệ` : `Đỏ · Không tiềm năng DMP B2C`;
+  partners[idx].updatedAt = new Date().toISOString();
+  refreshAllViews();
+  persistAppState();
+  setSyncNotice(`Đã chuyển trạng thái "${partners[idx].name}" sang ${partners[idx].statusLabel}.`, `ok`);
+}
+
+function openAddModal() {
+  const modal = document.getElementById(`partner-modal`);
+  if (!modal) return;
+  document.getElementById(`modal-title-text`).textContent = `Thêm Đối tác DMP mới`;
+  document.getElementById(`edit-partner-id`).value = ``;
+  document.getElementById(`f-name`).value = ``;
+  document.getElementById(`f-cat`).value = `E-voucher Aggregator / B2B`;
+  document.getElementById(`f-status`).value = `XANH`;
+  document.getElementById(`f-score`).value = `8.5`;
+  document.getElementById(`f-group`).value = `E-Voucher, AI (Digital Goods)`;
+  document.getElementById(`f-model`).value = `API cấp mã + Thanh toán đa kênh DMP`;
+  document.getElementById(`f-progress`).value = `Mới đề xuất. Cần liên hệ đầu mối lấy bảng giá sỉ & API.`;
+  document.getElementById(`f-desc`).value = ``;
+  document.getElementById(`f-retail`).value = ``;
+  document.getElementById(`f-wholesale`).value = ``;
+  document.getElementById(`f-channel`).value = `Website/App`;
+  document.getElementById(`f-web`).value = ``;
+  document.getElementById(`f-contact`).value = ``;
+  document.getElementById(`f-pm`).value = `Nhóm 4 (PT Mô hình KD số mới)`;
+
+  const delBtn = document.getElementById(`btn-modal-delete`);
+  if (delBtn) { delBtn.style.display = `none`; delBtn.dataset.armed = `false`; }
+  hideModalMsg();
+  modal.classList.add(`is-open`);
+}
+
+function openEditModal(id) {
+  const p = partners.find(item => item.id === id);
+  const modal = document.getElementById(`partner-modal`);
+  if (!p || !modal) return;
+
+  document.getElementById(`modal-title-text`).textContent = `Chi tiết & Chỉnh sửa: ${p.name}`;
+  document.getElementById(`edit-partner-id`).value = p.id;
+  document.getElementById(`f-name`).value = p.name || ``;
+  document.getElementById(`f-cat`).value = p.category || ``;
+  document.getElementById(`f-status`).value = p.status || `VANG`;
+  document.getElementById(`f-score`).value = p.score ?? 8.0;
+  document.getElementById(`f-group`).value = p.group641 || ``;
+  document.getElementById(`f-model`).value = p.integrationModel || ``;
+  document.getElementById(`f-progress`).value = p.progress || ``;
+  document.getElementById(`f-desc`).value = p.description || ``;
+  document.getElementById(`f-retail`).value = p.retailPrice || ``;
+  document.getElementById(`f-wholesale`).value = p.wholesalePrice || ``;
+  document.getElementById(`f-channel`).value = p.salesChannel || ``;
+  document.getElementById(`f-web`).value = p.website || ``;
+  document.getElementById(`f-contact`).value = p.contact || ``;
+  document.getElementById(`f-pm`).value = p.pm || ``;
+
+  const delBtn = document.getElementById(`btn-modal-delete`);
+  if (delBtn) {
+    delBtn.style.display = `inline-flex`;
+    delBtn.dataset.armed = `false`;
+    delBtn.classList.remove(`armed`);
+    delBtn.textContent = `Xóa đối tác`;
+  }
+  hideModalMsg();
+  modal.classList.add(`is-open`);
+}
+
+function closePartnerModal() {
+  const modal = document.getElementById(`partner-modal`);
+  if (modal) modal.classList.remove(`is-open`);
+}
+
+function showModalMsg(text) {
+  const box = document.getElementById(`modal-inline-msg`);
+  const span = document.getElementById(`modal-inline-msg-text`);
+  if (box && span) {
+    span.textContent = text;
+    box.style.display = `flex`;
+  }
+}
+
+function hideModalMsg() {
+  const box = document.getElementById(`modal-inline-msg`);
+  if (box) box.style.display = `none`;
+}
+
+function savePartnerForm() {
+  const id = document.getElementById(`edit-partner-id`).value.trim();
+  const name = document.getElementById(`f-name`).value.trim();
+  const category = document.getElementById(`f-cat`).value.trim();
+  if (!name || !category) {
+    showModalMsg(`Vui lòng nhập đầy đủ Tên SPDV/Đối tác và Lĩnh vực trước khi lưu.`);
+    return;
+  }
+  const status = document.getElementById(`f-status`).value;
+  const statusLabel = status === `XANH` ? `Xanh · Tiềm năng` : status === `VANG` ? `Vàng · Đã liên hệ` : `Đỏ · Không tiềm năng DMP B2C`;
+
+  const record = {
+    id: id || `P` + Date.now(),
+    stt: id ? (partners.find(x => x.id === id)?.stt || partners.length + 1) : (Math.max(0, ...partners.map(x => Number(x.stt) || 0)) + 1),
+    name: name,
+    category: category,
+    status: status,
+    statusLabel: statusLabel,
+    score: parseFloat(document.getElementById(`f-score`).value) || 0,
+    group641: document.getElementById(`f-group`).value.trim(),
+    integrationModel: document.getElementById(`f-model`).value.trim(),
+    progress: document.getElementById(`f-progress`).value.trim(),
+    description: document.getElementById(`f-desc`).value.trim(),
+    retailPrice: document.getElementById(`f-retail`).value.trim(),
+    wholesalePrice: document.getElementById(`f-wholesale`).value.trim(),
+    salesChannel: document.getElementById(`f-channel`).value.trim(),
+    website: document.getElementById(`f-web`).value.trim(),
+    contact: document.getElementById(`f-contact`).value.trim(),
+    pm: document.getElementById(`f-pm`).value.trim(),
+    updatedAt: new Date().toISOString()
+  };
+
+  if (id) {
+    const idx = partners.findIndex(x => x.id === id);
+    if (idx !== -1) partners[idx] = record;
+  } else {
+    partners.push(record);
+  }
+
+  closePartnerModal();
+  refreshAllViews();
+  persistAppState();
+  setSyncNotice(`Đã lưu cập nhật đối tác "${record.name}".`, `ok`);
+  if (gasWebAppUrl) {
+    postToGas({ action: `upsert`, item: record }, true);
+  }
+}
+
+function deleteCurrentPartner(btn) {
+  const id = document.getElementById(`edit-partner-id`).value.trim();
+  if (!id) return;
+  if (btn.dataset.armed !== `true`) {
+    btn.dataset.armed = `true`;
+    btn.classList.add(`armed`);
+    btn.textContent = `Bấm lần nữa để xác nhận xóa`;
+    return;
+  }
+  const target = partners.find(p => p.id === id);
+  partners = partners.filter(p => p.id !== id);
+  closePartnerModal();
+  refreshAllViews();
+  persistAppState();
+  setSyncNotice(`Đã xóa đối tác "${target ? target.name : id}" khỏi danh mục.`, `warn`);
+  if (gasWebAppUrl) {
+    postToGas({ action: `delete`, id: id }, true);
+  }
+}
+
+function usePartnerInInvite() {
+  const id = document.getElementById(`edit-partner-id`).value.trim();
+  if (id) {
+    const sel = document.getElementById(`invite-partner-select`);
+    if (sel) sel.value = id;
+    populateInviteFromPartner(id);
+  }
+  closePartnerModal();
+  const targetEl = document.getElementById(`sec-invite`);
+  if (targetEl) targetEl.scrollIntoView({ behavior: `smooth` });
+}
+
+/* GOOGLE SHEETS SYNC HANDLERS */
+function validateGasUrl(url) {
+  const clean = (url || ``).trim();
+  if (!clean) return ``;
+  if (!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/i.test(clean) && !/^https?:\/\//i.test(clean)) {
+    return null;
+  }
+  return clean;
+}
+
+async function saveUrlAndLoad() {
+  const input = document.getElementById(`gas-url-input`);
+  if (!input) return;
+  const valid = validateGasUrl(input.value);
+  if (valid === null || valid === ``) {
+    setSyncNotice(`URL không hợp lệ. Vui lòng dán Web App URL bắt đầu bằng https://script.google.com/macros/s/.../exec`, `err`);
+    return;
+  }
+  gasWebAppUrl = valid;
+  await persistAppState();
+  await fetchFromGas();
+}
+
+async function fetchFromGas() {
+  if (!gasWebAppUrl) {
+    setSyncNotice(`Chưa cấu hình Google Apps Script Web App URL. Hãy dán URL /exec và bấm "Lưu URL & Tải dữ liệu".`, `warn`);
+    return;
+  }
+  setSyncNotice(`Đang tải dữ liệu từ sheet DoiTac_DMP...`, ``);
+  try {
+    const sep = gasWebAppUrl.includes(`?`) ? `&` : `?`;
+    const res = await fetch(gasWebAppUrl + sep + `action=list`, { method: `GET` });
+    const json = await res.json();
+    if (json && json.ok && Array.isArray(json.data)) {
+      if (json.data.length === 0) {
+        setSyncNotice(`Sheet DoiTac_DMP đang trống. Bấm "Đẩy 32 đối tác khởi tạo lên Sheet" để khởi tạo dữ liệu.`, `warn`);
+      } else {
+        partners = json.data.map((r, i) => ({
+          id: r.id || `P` + (i + 1),
+          stt: Number(r.stt) || (i + 1),
+          name: r.name || ``,
+          category: r.category || ``,
+          status: [`XANH`, `VANG`, `DO`].includes(r.status) ? r.status : `VANG`,
+          statusLabel: r.statusLabel || ``,
+          score: parseFloat(r.score) || 0,
+          group641: r.group641 || ``,
+          integrationModel: r.integrationModel || ``,
+          progress: r.progress || ``,
+          description: r.description || ``,
+          retailPrice: r.retailPrice || ``,
+          wholesalePrice: r.wholesalePrice || ``,
+          salesChannel: r.salesChannel || ``,
+          website: r.website || ``,
+          contact: r.contact || ``,
+          pm: r.pm || ``,
+          updatedAt: r.updatedAt || ``
+        }));
+        lastSyncTime = new Date().toLocaleString(`vi-VN`);
+        updateLastSyncLabel();
+        refreshAllViews();
+        await persistAppState();
+        setSyncNotice(`Đã tải thành công ${partners.length} đối tác từ Google Sheets (${lastSyncTime}).`, `ok`);
+      }
+    } else {
+      setSyncNotice(`Phản hồi từ Google Sheets không đúng định dạng JSON mong đợi.`, `err`);
+    }
+  } catch (err) {
+    setSyncNotice(`Không thể kết nối GET tới Web App URL (${err.message}). Kiểm tra lại quyền truy cập "Anyone" trong Apps Script hoặc CORS trong sandbox.`, `err`);
+  }
+}
+
+async function postToGas(payload, silent) {
+  if (!gasWebAppUrl) {
+    if (!silent) setSyncNotice(`Chưa nhập Web App URL để đẩy dữ liệu lên Google Sheets.`, `warn`);
+    return false;
+  }
+  if (!silent) setSyncNotice(`Đang gửi dữ liệu (POST) lên sheet DoiTac_DMP...`, ``);
+  try {
+    const res = await fetch(gasWebAppUrl, {
+      method: `POST`,
+      headers: { 'Content-Type': `text/plain;charset=utf-8` },
+      body: JSON.stringify(payload)
+    });
+    const text = await res.text();
+    let parsed = {};
+    try { parsed = JSON.parse(text); } catch (_) { parsed = { ok: res.ok }; }
+    if (parsed.ok !== false) {
+      lastSyncTime = new Date().toLocaleString(`vi-VN`);
+      updateLastSyncLabel();
+      await persistAppState();
+      if (!silent) setSyncNotice(`Đồng bộ POST lên Google Sheets thành công lúc ${lastSyncTime}.`, `ok`);
+      return true;
+    }
+    setSyncNotice(`Apps Script báo lỗi: ${parsed.error || `Không xác định`}`, `err`);
+    return false;
+  } catch (err) {
+    setSyncNotice(`Lỗi khi POST lên Google Sheets (${err.message}). Dữ liệu vẫn được lưu an toàn trong phiên làm việc.`, `err`);
+    return false;
+  }
+}
+
+async function syncNow() {
+  const input = document.getElementById(`gas-url-input`);
+  if (input && input.value.trim()) {
+    const valid = validateGasUrl(input.value);
+    if (valid) gasWebAppUrl = valid;
+  }
+  if (!gasWebAppUrl) {
+    setSyncNotice(`Vui lòng nhập Google Apps Script Web App URL trước khi đồng bộ.`, `warn`);
+    return;
+  }
+  const ok = await postToGas({ action: `syncAll`, data: partners }, false);
+  if (ok) await fetchFromGas();
+}
+
+async function seedInitial32ToSheet() {
+  const input = document.getElementById(`gas-url-input`);
+  if (input && input.value.trim()) {
+    const valid = validateGasUrl(input.value);
+    if (valid) gasWebAppUrl = valid;
+  }
+  if (!gasWebAppUrl) {
+    setSyncNotice(`Vui lòng nhập Google Apps Script Web App URL trước khi đẩy 32 đối tác khởi tạo.`, `warn`);
+    return;
+  }
+  const seedList = cloneInitialPartners();
+  const ok = await postToGas({ action: `seed`, data: seedList }, false);
+  if (ok) {
+    setSyncNotice(`Đã đẩy 32 đối tác khởi tạo lên sheet DoiTac_DMP thành công!`, `ok`);
+  }
+}
+
+function resetToOriginalData(btn) {
+  if (btn.dataset.armed !== `true`) {
+    btn.dataset.armed = `true`;
+    btn.classList.add(`armed`);
+    btn.textContent = `Bấm lần nữa để khôi phục 32 đối tác gốc`;
+    return;
+  }
+  btn.dataset.armed = `false`;
+  btn.classList.remove(`armed`);
+  btn.textContent = `Khôi phục dữ liệu gốc`;
+  partners = cloneInitialPartners();
+  activeStatusFilter = `ALL`;
+  setStatusFilter(`ALL`);
+  refreshAllViews();
+  persistAppState();
+  setSyncNotice(`Đã khôi phục toàn bộ 32 đối tác gốc từ Book1.csv & Mở rộng v2.`, `ok`);
+}
+
+function exportPartnersCsv() {
+  const cols = [`stt`, `name`, `category`, `status`, `statusLabel`, `score`, `group641`, `integrationModel`, `progress`, `description`, `retailPrice`, `wholesalePrice`, `salesChannel`, `website`, `contact`, `pm`];
+  const header = [`STT`, `Ten_SPDV`, `Linh_vuc`, `Ma_mau`, `Phan_loai`, `Diem_DMP`, `Nhom_SP_641`, `Mo_hinh_tich_hop`, `Hien_trang_trao_doi`, `Mo_ta_SPDV`, `Gia_ban_le`, `Gia_ban_buon`, `Kenh_ban`, `Website`, `Contact`, `PM`];
+  const csvEsc = v => `"` + String(v ?? ``).replace(/"/g, `""`) + `"`;
+  const lines = [header.map(csvEsc).join(`,`)].concat(
+    partners.map(p => cols.map(c => csvEsc(p[c])).join(`,`))
+  );
+  const csvContent = `\uFEFF` + lines.join(`\n`);
+
+  if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+    window.notebookAppApi.triggerFileDownload({
+      content: csvContent,
+      contentType: `text/csv`,
+      encoding: `UTF-8`,
+      filename: `DanhMuc_32_DoiTac_DMP.csv`
+    });
+    setSyncNotice(`Đã xuất tệp DanhMuc_32_DoiTac_DMP.csv (${partners.length} dòng).`, `ok`);
+  } else {
+    const blob = new Blob([csvContent], { type: `text/csv;charset=utf-8;` });
+    const a = document.createElement(`a`);
+    a.href = URL.createObjectURL(blob);
+    a.download = `DanhMuc_32_DoiTac_DMP.csv`;
+    a.click();
+    setSyncNotice(`Đã tải xuống DanhMuc_32_DoiTac_DMP.csv.`, `ok`);
+  }
+}
+
+function updateLastSyncLabel() {
+  const el = document.getElementById(`gsheet-last-sync`);
+  if (el) el.textContent = lastSyncTime ? `Đồng bộ gần nhất: ${lastSyncTime}` : `Chưa đồng bộ Google Sheets`;
+}
+
+function copyCodeGs() {
+  copyTextToClipboard(CODE_GS_TEMPLATE, `btn-copy-codegs`, `Đã sao chép Code.gs!`);
+}
+
+/* WORKFLOW TABS & RACI */
+function switchWorkflowTab(tabId, btn) {
+  document.querySelectorAll(`#sec-workflow .tab-btn`).forEach(b => b.classList.remove(`is-active`));
+  document.querySelectorAll(`#sec-workflow .tab-panel`).forEach(p => p.classList.remove(`is-active`));
+  if (btn) btn.classList.add(`is-active`);
+  const target = document.getElementById(`wf-tab-` + tabId);
+  if (target) target.classList.add(`is-active`);
+}
+
+function formatRaciCell(code) {
+  if (!code) return `<span style="color:var(--outline);">—</span>`;
+  if (code === `A,R`) return `<span class="raci-badge raci-ar">A,R</span>`;
+  if (code === `R`) return `<span class="raci-badge raci-r">R</span>`;
+  if (code === `C`) return `<span class="raci-badge raci-c">C</span>`;
+  return `<span class="raci-badge raci-i">${escapeHtml(code)}</span>`;
+}
+
+function renderRaciTable() {
+  const filterEl = document.getElementById(`raci-filter`);
+  const tbody = document.getElementById(`raci-tbody`);
+  if (!tbody) return;
+  const f = filterEl ? filterEl.value : `ALL`;
+  const rows = RACI_DATA.filter(r => f === `ALL` || r.group === f);
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td style="font-weight:700;">${escapeHtml(r.task)}</td>
+      <td>${formatRaciCell(r.n1)}</td>
+      <td>${formatRaciCell(r.n2)}</td>
+      <td>${formatRaciCell(r.n3)}</td>
+      <td>${formatRaciCell(r.n4)}</td>
+      <td>${formatRaciCell(r.n5)}</td>
+    </tr>
+  `).join(``);
+}
+
+/* INVITE LETTER GENERATOR */
+function populateInviteFromPartner(id) {
+  const p = partners.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById(`invite-cp-name`).value = p.name;
+  document.getElementById(`invite-contact-name`).value = p.contact ? p.contact.split(`·`)[0].trim() : `Bộ phận Phát triển Kinh doanh`;
+  document.getElementById(`invite-product-name`).value = p.group641 || p.category;
+  const mSel = document.getElementById(`invite-model-select`);
+  if (mSel) {
+    if (String(p.integrationModel).includes(`1376`)) mSel.value = `sub`;
+    else if (String(p.integrationModel).includes(`eSIM`)) mSel.value = `esim`;
+    else mSel.value = `voucher`;
+  }
+  generateInviteLetter();
+}
+
+function generateInviteLetter() {
+  const cp = (document.getElementById(`invite-cp-name`)?.value || `[Tên Đối tác]`).trim();
+  const contact = (document.getElementById(`invite-contact-name`)?.value || `Quý Đối tác`).trim();
+  const prod = (document.getElementById(`invite-product-name`)?.value || `[Tên Sản phẩm/Dịch vụ]`).trim();
+  const model = document.getElementById(`invite-model-select`)?.value || `voucher`;
+
+  let modelDetail = `1) Hình thức phân phối: Cung cấp mã kích hoạt (E-Voucher / License Code) qua API hoặc kho mã tập trung trên sàn thương mại điện tử nội dung số dimarket.vn.\n2) Thanh toán đa kênh: Khách hàng thanh toán linh hoạt qua tài khoản viễn thông VinaPhone (đầu số 1376) hoặc các kênh thanh toán điện tử (ví điện tử, ngân hàng số).`;
+  if (model === `sub`) {
+    modelDetail = `1) Hình thức phân phối: Gói thuê bao ngày/tuần/tháng qua đầu số 1376 và cổng dimarket.vn (hỗ trợ chính sách miễn phí ngày đầu cho thuê bao mới).\n2) Trừ cước & gia hạn tự động: Hệ thống VNPT thực hiện trừ cước trực tiếp trên tài khoản chính/tài khoản thanh toán VinaPhone và đối soát minh bạch hàng tháng.`;
+  } else if (model === `esim`) {
+    modelDetail = `1) Hình thức phân phối: Đóng gói sản phẩm số kết hợp cùng Data VinaPhone / Bộ KIT eSIM chuyên biệt (Du lịch, Giáo dục, Giải trí) trên nền tảng dimarket.vn.\n2) Lợi thế mở rộng: Tiếp cận trực tiếp tệp thuê bao di động và khách hàng du lịch, tối ưu tỷ lệ chuyển đổi ngay tại điểm chạm kích hoạt SIM.`;
+  }
+
+  const subj = `[VNPT-Media] Thư mời hợp tác phân phối ${prod} của ${cp} trên sàn Digital Market Place (dimarket.vn)`;
+  const body = `Kính gửi: ${contact} — ${cp},
+
+Lời đầu tiên, Trung tâm Dịch vụ Số Cá nhân (VNPT VAS) – Tổng Công ty Truyền thông (VNPT-Media) xin gửi tới Quý Công ty lời chào trân trọng và lời chúc hợp tác phát triển bền vững.
+
+Hiện nay, VNPT-Media đang vận hành và mở rộng hệ sinh thái Digital Market Place (thương hiệu: dimarket.vn, đầu số dịch vụ 1376) – nền tảng thương mại điện tử chuyên biệt phân phối các sản phẩm, dịch vụ thuần nội dung số (License phần mềm, Đào tạo trực tuyến, E-Voucher/Gift Card, Giải trí, Game và Bộ KIT eSIM nội dung số) tới hàng chục triệu thuê bao VinaPhone và người dùng số trên toàn quốc.
+
+Nhận thấy ${prod} của ${cp} có độ phù hợp cao với định hướng mở rộng danh mục của dimarket.vn, Nhóm Phát triển Mô hình Kinh doanh số mới (Phòng Phát triển Kinh doanh – VNPT VAS) trân trọng kính mời Quý Công ty tham gia hợp tác triển khai với các nội dung đề xuất như sau:
+
+${modelDetail}
+3) Tiến độ triển khai rút ngắn: Theo quy trình số hóa mới của Tập đoàn VNPT, thời gian tích hợp kỹ thuật và nghiệm thu UAT chỉ từ 5–10 ngày làm việc.
+4) Kênh truyền thông & bán hàng: Hỗ trợ quảng bá đồng bộ trên dimarket.vn, MyVNPT, VNPT Money, kênh CSKH và mạng lưới VNPT 34 Tỉnh/Thành phố.
+
+Rất mong Quý Công ty sắp xếp một buổi trao đổi trực tuyến hoặc trực tiếp trong tuần này để hai bên cùng thảo luận chi tiết về chính sách chiết khấu/chia sẻ doanh thu, phương thức kết nối kỹ thuật (API/kho mã) và lộ trình đưa sản phẩm lên sàn.
+
+Mọi thông tin phản hồi xin vui lòng liên hệ đầu mối của chúng tôi:
+- Nhóm Phát triển Mô hình Kinh doanh số mới — Phòng Phát triển Kinh doanh (VNPT VAS)
+- Trưởng nhóm: Bà Nguyễn Thị Thu Hiền | Phối hợp nghiệp vụ DMP: Bà Hà Thị Hồng Thái (SĐT: 094 664 0236 · Email: thaihth@vnpt.vn)
+
+Trân trọng cảm ơn và mong sớm nhận được phản hồi từ Quý Công ty!`;
+
+  const subEl = document.getElementById(`invite-subject`);
+  const bodyEl = document.getElementById(`invite-body`);
+  if (subEl) subEl.value = subj;
+  if (bodyEl) bodyEl.value = body;
+}
+
+function copyInviteLetter() {
+  const subj = document.getElementById(`invite-subject`)?.value || ``;
+  const body = document.getElementById(`invite-body`)?.value || ``;
+  copyTextToClipboard(`Tiêu đề: ${subj}\n\n${body}`, `btn-copy-invite`, `Đã sao chép Thư mời!`);
+}
+
+function copyInviteSubject() {
+  const subj = document.getElementById(`invite-subject`)?.value || ``;
+  copyTextToClipboard(subj, `btn-copy-subject`, `Đã sao chép Tiêu đề!`);
+}
+
+function copyTextToClipboard(text, btnId, okLabel) {
+  const btn = document.getElementById(btnId);
+  const orig = btn ? btn.textContent : ``;
+  const markDone = () => {
+    if (!btn) return;
+    btn.textContent = okLabel;
+    setTimeout(() => { btn.textContent = orig; }, 1800);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(markDone).catch(() => fallbackCopy(text, markDone));
+  } else {
+    fallbackCopy(text, markDone);
+  }
+}
+
+function fallbackCopy(text, cb) {
+  const ta = document.createElement(`textarea`);
+  ta.value = text;
+  ta.style.position = `fixed`;
+  ta.style.opacity = `0`;
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand(`copy`); } catch (_) {}
+  document.body.removeChild(ta);
+  if (cb) cb();
+}
+
+/* ROADMAP SVG STACKED BAR CHART (2027-2029) */
+function renderRoadmapSvg() {
+  const host = document.getElementById(`roadmap-svg-host`);
+  if (!host) return;
+
+  const data = [
+    { year: `Năm 2027`, total: 30.673, cust: `252.450 KH`, segs: [8.836, 7.952, 7.574, 5.049, 1.262] },
+    { year: `Năm 2028 (+15%)`, total: 35.274, cust: `290.318 KH`, segs: [10.161, 9.145, 8.710, 5.806, 1.452] },
+    { year: `Năm 2029 (+20%)`, total: 42.328, cust: `348.381 KH`, segs: [12.193, 10.974, 10.451, 6.968, 1.742] }
+  ];
+  const colors = [`var(--data-1)`, `var(--data-2)`, `var(--data-3)`, `var(--data-4)`, `var(--data-5)`];
+  const maxVal = 48;
+  const W = 680, H = 230, padL = 44, padR = 16, padT = 22, padB = 42;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
+  const barW = 92;
+  const step = plotW / data.length;
+
+  let gridLines = ``;
+  [0, 10, 20, 30, 40].forEach(tick => {
+    const y = padT + plotH - (tick / maxVal) * plotH;
+    gridLines += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="var(--outline-variant)" stroke-width="1"/>`;
+    gridLines += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" fill="var(--on-surface-variant)" font-size="11" font-family="Arial, sans-serif">${tick}t</text>`;
+  });
+
+  let bars = ``;
+  data.forEach((d, idx) => {
+    const cx = padL + step * idx + step / 2;
+    const x = cx - barW / 2;
+    let cum = 0;
+    d.segs.forEach((val, sIdx) => {
+      const h = (val / maxVal) * plotH;
+      const y = padT + plotH - ((cum + val) / maxVal) * plotH;
+      bars += `<rect x="${x}" y="${y}" width="${barW}" height="${Math.max(1, h - 1)}" fill="${colors[sIdx]}"/>`;
+      cum += val;
+    });
+    const topY = padT + plotH - (d.total / maxVal) * plotH;
+    bars += `<text x="${cx}" y="${topY - 6}" text-anchor="middle" fill="var(--on-surface)" font-size="12" font-weight="700" font-family="Arial, sans-serif">${d.total.toFixed(2)} tỷ</text>`;
+    bars += `<text x="${cx}" y="${padT + plotH + 16}" text-anchor="middle" fill="var(--on-surface)" font-size="11" font-weight="700" font-family="Arial, sans-serif">${d.year}</text>`;
+    bars += `<text x="${cx}" y="${padT + plotH + 31}" text-anchor="middle" fill="var(--on-surface-variant)" font-size="10.5" font-family="Arial, sans-serif">${d.cust}</text>`;
+  });
+
+  host.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" width="100%" height="230" role="img" aria-label="Biểu đồ dự báo doanh thu DMP 2027 đến 2029">
+      ${gridLines}
+      <line x1="${padL}" y1="${padT + plotH}" x2="${W - padR}" y2="${padT + plotH}" stroke="var(--outline)" stroke-width="1.5"/>
+      ${bars}
+    </svg>
+  `;
+}
+
+function refreshAllViews() {
+  populateCategoryOptions();
+  updateSummaryCounts();
+  applyPartnerFilters();
+}
+
+async function initApp() {
+  const codeBox = document.getElementById(`codegs-preview`);
+  if (codeBox) codeBox.textContent = CODE_GS_TEMPLATE;
+
+  partners = cloneInitialPartners();
+
+  try {
+    if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+      const saved = await window.notebookAppApi.getAppState();
+      if (saved) {
+        if (Array.isArray(saved.partners) && saved.partners.length > 0) {
+          partners = saved.partners;
+        }
+        if (typeof saved.gasWebAppUrl === `string`) {
+          gasWebAppUrl = saved.gasWebAppUrl;
+          const urlInput = document.getElementById(`gas-url-input`);
+          if (urlInput) urlInput.value = gasWebAppUrl;
+        }
+        if (typeof saved.lastSyncTime === `string`) {
+          lastSyncTime = saved.lastSyncTime;
+          updateLastSyncLabel();
+        }
+        if (saved.activeStatusFilter) {
+          activeStatusFilter = saved.activeStatusFilter;
+        }
+      }
+    }
+  } catch (_) {}
+
+  refreshAllViews();
+  setStatusFilter(activeStatusFilter);
+  renderRaciTable();
+  generateInviteLetter();
+  renderRoadmapSvg();
+
+  document.addEventListener(`keydown`, e => {
+    if (e.key === `Escape`) closePartnerModal();
+  });
+
+  if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+    window.notebookAppApi.notifyAppReady();
+  }
+}
+
+document.addEventListener(`DOMContentLoaded`, initApp);
+</script>
+</body>
+</html>
